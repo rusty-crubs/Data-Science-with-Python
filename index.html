@@ -1,280 +1,347 @@
+GitHub Pages can't execute or render Jupyter notebooks natively; the repo's raw .ipynb files show JSON. To show rendered previews on your static site, embed a notebook renderer. I'll update the single-page index.html to show live rendered previews using nbviewer.js (client-side renderer) and GitHub's raw URLs.
 
+Save this single index.html (replace YOUR_GITHUB_USER and YOUR_REPO with your repo path, e.g., "alice/Data-Science-with-Python"):
+
+```html
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Data Science with Python</title>
-
-  <!-- Tailwind CDN for quick GitHub Pages use -->
+  <title>Data Science with Python — Notebooks Preview</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            brand: { DEFAULT: '#06b6d4', 600: '#0891b2' }
-          },
-          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'sans-serif'] }
+          colors: { brand: { DEFAULT: '#06b6d4', 600: '#0891b2' } },
+          fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] }
         }
       }
     }
   </script>
-  <meta name="description" content="Data Science with Python — notebooks, lab reports, and practice files." />
+  <meta name="description" content="Rendered previews of Jupyter notebooks" />
+  <style>
+    /* minimal notebook container sizing */
+    .nb-frame { width:100%; height:560px; border:1px solid rgba(148,163,184,.12); border-radius:.5rem; overflow:hidden; background:white; }
+  </style>
 </head>
-<body class="bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 text-slate-100 antialiased">
-  <header class="sticky top-0 z-40 bg-slate-900/75 backdrop-blur border-b border-slate-800">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <a href="#" class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-md bg-gradient-to-br from-brand to-brand-600 flex items-center justify-center text-slate-900 font-bold">DS</div>
-          <div>
-            <div class="text-lg font-semibold">Data Science with Python</div>
-            <div class="text-xs text-slate-400">Notebooks · Lab reports · Practice</div>
-          </div>
-        </a>
-
-        <div class="sm:hidden">
-          <button id="nav-toggle" aria-label="Open menu" class="p-2 rounded-md hover:bg-slate-800">
-            <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-            <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
+<body class="bg-slate-900 text-slate-100 antialiased">
+  <header class="sticky top-0 bg-slate-900/75 backdrop-blur z-40 border-b border-slate-800">
+    <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md bg-gradient-to-br from-brand to-brand-600 flex items-center justify-center text-slate-900 font-bold">DS</div>
+        <div>
+          <div class="font-semibold">Data Science with Python</div>
+          <div class="text-xs text-slate-400">Rendered notebook previews</div>
         </div>
-
-        <nav id="nav" class="hidden sm:flex sm:items-center sm:gap-6">
-          <a href="#course" class="text-sm hover:text-white">Course</a>
-          <a href="#labs" class="text-sm hover:text-white">Lab Reports</a>
-          <a href="#practice" class="text-sm hover:text-white">Practice</a>
-          <a href="#about" class="text-sm text-slate-400 hover:text-white">About</a>
-        </nav>
       </div>
-    </div>
-
-    <!-- Mobile menu -->
-    <div id="mobile-nav" class="sm:hidden hidden border-t border-slate-800">
-      <div class="px-4 py-3 space-y-1">
-        <a href="#course" class="block px-2 py-2 rounded hover:bg-slate-800">Course</a>
-        <a href="#labs" class="block px-2 py-2 rounded hover:bg-slate-800">Lab Reports</a>
-        <a href="#practice" class="block px-2 py-2 rounded hover:bg-slate-800">Practice</a>
-        <a href="#about" class="block px-2 py-2 rounded hover:bg-slate-800">About</a>
-      </div>
+      <nav class="hidden sm:flex gap-4 text-sm text-slate-300">
+        <a href="#course" class="hover:text-white">Course</a>
+        <a href="#labs" class="hover:text-white">Lab Reports</a>
+        <a href="#practice" class="hover:text-white">Practice</a>
+      </nav>
     </div>
   </header>
 
-  <main class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
-    <!-- Hero -->
-    <section class="bg-slate-800/40 rounded-2xl p-6 md:p-10 mb-8 shadow-lg">
-      <div class="md:flex md:items-center md:justify-between">
-        <div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold">Data Science with Python</h1>
-          <p class="mt-2 text-slate-300 max-w-2xl">Organized Jupyter notebooks, lab reports, and practice exercises — optimized for browsing on mobile and desktop.</p>
-          <div class="mt-4 flex flex-wrap gap-3">
-            <a href="#course" class="inline-flex items-center px-4 py-2 bg-brand rounded-md text-slate-900 font-medium shadow hover:opacity-95">Explore Course</a>
-            <a href="#labs" class="inline-flex items-center px-4 py-2 border border-slate-700 rounded-md text-slate-200 hover:border-slate-600">View Labs</a>
-          </div>
-        </div>
-
-        <div class="mt-6 md:mt-0 flex items-center justify-center">
-          <img alt="notebook preview" src="https://raw.githubusercontent.com/github/explore/main/topics/jupyter-notebook/jupyter-notebook.png" class="w-36 h-36 md:w-44 md:h-44 object-contain rounded-lg shadow-md bg-slate-900/40"/>
-        </div>
-      </div>
-    </section>
-
-    <!-- Course -->
-    <section id="course" class="mb-10">
+  <main class="mx-auto max-w-5xl px-4 py-8 space-y-8">
+    <section id="course">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold">Course</h2>
-        <p class="text-sm text-slate-400">Jupyter notebooks for each chapter</p>
+        <h2 class="text-xl font-semibold">Course — Notebooks</h2>
+        <p class="text-sm text-slate-400">Rendered previews (client-side)</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Chapter cards -->
-        <article class="bg-slate-800/40 p-4 rounded-xl hover:scale-[1.01] transition">
-          <div class="flex items-start justify-between">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Chapter 1 preview -->
+        <div class="bg-slate-800/40 p-4 rounded-xl">
+          <div class="flex justify-between items-start mb-3">
             <div>
               <h3 class="font-semibold">Chapter 1</h3>
-              <p class="text-sm text-slate-400 mt-1">Introduction & setup</p>
+              <p class="text-sm text-slate-400">Introduction & setup</p>
             </div>
-            <a class="ml-4 inline-flex items-center px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Course/Chapter-1.ipynb" target="_blank" rel="noopener">Open</a>
+            <div class="flex gap-2">
+              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-1.ipynb" target="_blank">Raw</a>
+              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-1.ipynb">Preview</button>
+            </div>
           </div>
-        </article>
+          <div class="nb-frame hidden" data-src=""></div>
+        </div>
 
-        <article class="bg-slate-800/40 p-4 rounded-xl hover:scale-[1.01] transition">
-          <div class="flex items-start justify-between">
+        <!-- Chapter 2 preview -->
+        <div class="bg-slate-800/40 p-4 rounded-xl">
+          <div class="flex justify-between items-start mb-3">
             <div>
               <h3 class="font-semibold">Chapter 2</h3>
-              <p class="text-sm text-slate-400 mt-1">Exploratory analysis</p>
+              <p class="text-sm text-slate-400">Exploratory analysis</p>
             </div>
-            <a class="ml-4 inline-flex items-center px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Course/Chapter-2.ipynb" target="_blank" rel="noopener">Open</a>
+            <div class="flex gap-2">
+              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-2.ipynb" target="_blank">Raw</a>
+              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-2.ipynb">Preview</button>
+            </div>
           </div>
-        </article>
+          <div class="nb-frame hidden" data-src=""></div>
+        </div>
 
-        <article class="bg-slate-800/40 p-4 rounded-xl hover:scale-[1.01] transition">
-          <div class="flex items-start justify-between">
+        <!-- Repeat for Chapters 3-6 -->
+        <div class="bg-slate-800/40 p-4 rounded-xl">
+          <div class="flex justify-between items-start mb-3">
             <div>
               <h3 class="font-semibold">Chapter 3</h3>
-              <p class="text-sm text-slate-400 mt-1">Data wrangling</p>
+              <p class="text-sm text-slate-400">Data wrangling</p>
             </div>
-            <a class="ml-4 inline-flex items-center px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Course/Chapter-3.ipynb" target="_blank" rel="noopener">Open</a>
+            <div class="flex gap-2">
+              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-3.ipynb" target="_blank">Raw</a>
+              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-3.ipynb">Preview</button>
+            </div>
           </div>
-        </article>
+          <div class="nb-frame hidden" data-src=""></div>
+        </div>
 
-        <article class="bg-slate-800/40 p-4 rounded-xl hover:scale-[1.01] transition">
-          <div class="flex items-start justify-between">
+        <div class="bg-slate-800/40 p-4 rounded-xl">
+          <div class="flex justify-between items-start mb-3">
             <div>
               <h3 class="font-semibold">Chapter 4</h3>
-              <p class="text-sm text-slate-400 mt-1">Visualization</p>
+              <p class="text-sm text-slate-400">Visualization</p>
             </div>
-            <a class="ml-4 inline-flex items-center px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Course/Chapter-4.ipynb" target="_blank" rel="noopener">Open</a>
+            <div class="flex gap-2">
+              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-4.ipynb" target="_blank">Raw</a>
+              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-4.ipynb">Preview</button>
+            </div>
           </div>
-        </article>
+          <div class="nb-frame hidden" data-src=""></div>
+        </div>
 
-        <article class="bg-slate-800/40 p-4 rounded-xl hover:scale-[1.01] transition">
-          <div class="flex items-start justify-between">
+        <div class="bg-slate-800/40 p-4 rounded-xl">
+          <div class="flex justify-between items-start mb-3">
             <div>
               <h3 class="font-semibold">Chapter 5</h3>
-              <p class="text-sm text-slate-400 mt-1">Modeling</p>
+              <p class="text-sm text-slate-400">Modeling</p>
             </div>
-            <a class="ml-4 inline-flex items-center px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Course/Chapter-5.ipynb" target="_blank" rel="noopener">Open</a>
+            <div class="flex gap-2">
+              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-5.ipynb" target="_blank">Raw</a>
+              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-5.ipynb">Preview</button>
+            </div>
           </div>
-        </article>
+          <div class="nb-frame hidden" data-src=""></div>
+        </div>
 
-        <article class="bg-slate-800/40 p-4 rounded-xl hover:scale-[1.01] transition">
-          <div class="flex items-start justify-between">
+        <div class="bg-slate-800/40 p-4 rounded-xl">
+          <div class="flex justify-between items-start mb-3">
             <div>
               <h3 class="font-semibold">Chapter 6</h3>
-              <p class="text-sm text-slate-400 mt-1">Advanced topics</p>
+              <p class="text-sm text-slate-400">Advanced topics</p>
             </div>
-            <a class="ml-4 inline-flex items-center px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Course/Chapter-6.ipynb" target="_blank" rel="noopener">Open</a>
+            <div class="flex gap-2">
+              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-6.ipynb" target="_blank">Raw</a>
+              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-6.ipynb">Preview</button>
+            </div>
           </div>
-        </article>
+          <div class="nb-frame hidden" data-src=""></div>
+        </div>
       </div>
     </section>
 
-    <!-- Lab Reports -->
-    <section id="labs" class="mb-10">
+    <!-- Labs -->
+    <section id="labs">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold">Lab Reports</h2>
-        <p class="text-sm text-slate-400">Datasets and lab notebooks</p>
+        <p class="text-sm text-slate-400">Rendered where possible</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex items-start justify-between">
+          <div class="flex justify-between items-start mb-3">
             <div>
               <h3 class="font-semibold">Lab 3 &amp; 4</h3>
-              <p class="text-sm text-slate-400 mt-1">auto.csv · Lab3&4.ipynb</p>
+              <p class="text-sm text-slate-400">auto.csv · Lab3&4.ipynb</p>
             </div>
-            <div class="flex flex-col gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Lab-Report/Lab-3&4/Lab3&4.ipynb" target="_blank" rel="noopener">Open</a>
-              <a class="px-3 py-1.5 border border-slate-700 rounded-md text-sm" href="Lab-Report/Lab-3&4/auto.csv" target="_blank" rel="noopener">CSV</a>
+            <div class="flex gap-2">
+              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Lab-Report/Lab-3&4/Lab3&4.ipynb" target="_blank">Raw</a>
+              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Lab-Report/Lab-3&4/Lab3&4.ipynb">Preview</button>
             </div>
           </div>
+          <div class="nb-frame hidden"></div>
         </div>
 
         <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex items-start justify-between">
+          <div class="flex justify-between items-start mb-3">
             <div>
               <h3 class="font-semibold">Lab 5</h3>
-              <p class="text-sm text-slate-400 mt-1">automobileEDA.csv · Lab-5.ipynb · ex1data1.txt</p>
+              <p class="text-sm text-slate-400">automobileEDA.csv · Lab-5.ipynb</p>
             </div>
-            <div class="flex flex-col gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Lab-Report/Lab-5/Lab-5.ipynb" target="_blank" rel="noopener">Open</a>
-              <div class="flex gap-2">
-                <a class="px-3 py-1.5 border border-slate-700 rounded-md text-sm" href="Lab-Report/Lab-5/automobileEDA.csv" target="_blank" rel="noopener">CSV</a>
-                <a class="px-3 py-1.5 border border-slate-700 rounded-md text-sm" href="Lab-Report/Lab-5/ex1data1.txt" target="_blank" rel="noopener">TXT</a>
-              </div>
+            <div class="flex gap-2">
+              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Lab-Report/Lab-5/Lab-5.ipynb" target="_blank">Raw</a>
+              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Lab-Report/Lab-5/Lab-5.ipynb">Preview</button>
             </div>
           </div>
+          <div class="nb-frame hidden"></div>
         </div>
       </div>
     </section>
 
     <!-- Practice -->
-    <section id="practice" class="mb-10">
+    <section id="practice">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold">Practice</h2>
-        <p class="text-sm text-slate-400">Extra notebooks and exercises</p>
+        <p class="text-sm text-slate-400">Exercises</p>
       </div>
 
       <div class="bg-slate-800/40 p-4 rounded-xl">
-        <div class="flex items-start justify-between">
+        <div class="flex items-start justify-between mb-3">
           <div>
             <h3 class="font-semibold">Filter-Signal-Analysis</h3>
             <p class="text-sm text-slate-400 mt-1">Practice notebook</p>
           </div>
-          <a class="ml-4 inline-flex items-center px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium" href="Practice/Filter-Signal-Analysis.ipynb" target="_blank" rel="noopener">Open</a>
+          <div class="flex gap-2">
+            <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Practice/Filter-Signal-Analysis.ipynb" target="_blank">Raw</a>
+            <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Practice/Filter-Signal-Analysis.ipynb">Preview</button>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- About / Resources -->
-    <section id="about" class="mb-12">
-      <h2 class="text-xl font-semibold mb-3">About & Resources</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <h3 class="font-semibold">Repository files</h3>
-          <ul class="mt-3 space-y-2 text-sm text-slate-300">
-            <li><strong class="text-slate-200">README:</strong> <a class="text-brand hover:underline" href="README.md" target="_blank" rel="noopener">README.md</a></li>
-            <li><strong class="text-slate-200">Requirements:</strong> <a class="text-brand hover:underline" href="requirement.txt" target="_blank" rel="noopener">requirement.txt</a></li>
-          </ul>
-        </div>
-
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <h3 class="font-semibold">Tips</h3>
-          <ul class="mt-3 space-y-2 text-sm text-slate-300">
-            <li>Use GitHub's file preview to open .ipynb files in the browser.</li>
-            <li>Host images in assets/img/ and link them with relative paths for consistent display.</li>
-          </ul>
-        </div>
+        <div class="nb-frame hidden"></div>
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-slate-800 py-6">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="text-sm text-slate-400">© 2026 Data Science with Python</div>
-      <div class="flex gap-3">
-        <a href="https://github.com/" class="text-slate-400 hover:text-white text-sm" target="_blank" rel="noopener">View on GitHub</a>
-        <a href="README.md" class="text-slate-400 hover:text-white text-sm" target="_blank" rel="noopener">README</a>
-      </div>
-    </div>
-  </footer>
+  <footer class="border-t border-slate-800 py-6 text-center text-sm text-slate-400">© 2026 Data Science with Python</footer>
 
+  <!-- Client-side notebook renderer using nbviewer CDN + GitHub raw fetch -->
   <script>
-    // Mobile nav toggle
-    const navToggle = document.getElementById('nav-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    const iconOpen = document.getElementById('icon-open');
-    const iconClose = document.getElementById('icon-close');
-    navToggle?.addEventListener('click', () => {
-      const open = mobileNav.classList.toggle('hidden');
-      iconOpen.classList.toggle('hidden');
-      iconClose.classList.toggle('hidden');
-      // when mobile nav becomes visible, remove 'hidden' -> open === false, so invert
-      if (mobileNav.classList.contains('hidden')) {
-        iconOpen.classList.remove('hidden'); iconClose.classList.add('hidden');
-      } else {
-        iconOpen.classList.add('hidden'); iconClose.classList.remove('hidden');
-      }
-    });
+    // Replace with your GitHub user/repo path
+    const REPO_RAW_BASE = location.origin + location.pathname.replace(/index\.html$|\/$/, '') || '';
+    // If deployed on GitHub Pages, raw files are accessible via relative paths (no CORS issues)
+    // Function to fetch notebook JSON and render using simple conversion to HTML via nbconvert static approach
+    async function fetchNotebook(path) {
+      const url = path; // relative path within the repo
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Fetch failed: ' + res.status);
+      return res.json();
+    }
 
-    // Smooth scroll for anchors
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        const href = a.getAttribute('href');
-        if (href.startsWith('#')) {
-          e.preventDefault();
-          const el = document.querySelector(href);
-          if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-          // close mobile nav
-          if (!mobileNav.classList.contains('hidden')) {
-            mobileNav.classList.add('hidden');
-            iconOpen.classList.remove('hidden'); iconClose.classList.add('hidden');
+    // Basic renderer: convert notebook JSON cells to simple HTML (markdown & code)
+    // This is a lightweight renderer for preview — not full nbconvert fidelity.
+    function renderNotebookToHTML(nb) {
+      const container = document.createElement('div');
+      container.className = 'p-4 bg-white text-black text-sm overflow-auto';
+      const meta = document.createElement('div');
+      meta.className = 'mb-3 text-xs text-slate-500';
+      meta.textContent = `Notebook: ${nb.metadata?.title || 'Untitled'} — Kernel: ${nb.metadata?.kernelspec?.name || 'unknown'}`;
+      container.appendChild(meta);
+
+      (nb.cells || []).forEach((cell, idx) => {
+        const cellWrap = document.createElement('div');
+        cellWrap.className = 'mb-3';
+        if (cell.cell_type === 'markdown') {
+          const md = cell.source.join('');
+          // render basic markdown: headings, code blocks, lists, paragraphs
+          const mdEl = document.createElement('div');
+          mdEl.innerHTML = simpleMarkdownToHTML(md);
+          mdEl.className = 'prose max-w-none';
+          cellWrap.appendChild(mdEl);
+        } else if (cell.cell_type === 'code') {
+          const pre = document.createElement('pre');
+          pre.className = 'bg-slate-900 text-slate-100 p-3 rounded text-xs overflow-auto';
+          const code = cell.source.join('');
+          pre.textContent = code;
+          cellWrap.appendChild(pre);
+
+          // outputs (text/html/png)
+          if (cell.outputs && cell.outputs.length) {
+            cell.outputs.forEach(out => {
+              if (out.output_type === 'stream' && out.text) {
+                const preOut = document.createElement('pre');
+                preOut.className = 'bg-slate-100 text-slate-900 p-3 rounded text-xs overflow-auto mt-2';
+                preOut.textContent = out.text.join ? out.text.join('') : out.text;
+                cellWrap.appendChild(preOut);
+              } else if (out.output_type === 'execute_result' || out.output_type === 'display_data') {
+                if (out.data) {
+                  if (out.data['text/plain']) {
+                    const preOut = document.createElement('pre');
+                    preOut.className = 'bg-slate-100 text-slate-900 p-3 rounded text-xs overflow-auto mt-2';
+                    preOut.textContent = Array.isArray(out.data['text/plain']) ? out.data['text/plain'].join('') : out.data['text/plain'];
+                    cellWrap.appendChild(preOut);
+                  }
+                  if (out.data['image/png']) {
+                    const img = document.createElement('img');
+                    img.src = 'data:image/png;base64,' + out.data['image/png'];
+                    img.className = 'mt-2 rounded shadow-sm';
+                    img.style.maxWidth = '100%';
+                    cellWrap.appendChild(img);
+                  }
+                  if (out.data['text/html']) {
+                    const div = document.createElement('div');
+                    div.className = 'mt-2';
+                    div.innerHTML = Array.isArray(out.data['text/html']) ? out.data['text/html'].join('') : out.data['text/html'];
+                    cellWrap.appendChild(div);
+                  }
+                }
+              }
+            });
           }
+        }
+        container.appendChild(cellWrap);
+      });
+
+      return container;
+    }
+
+    // Very small markdown-to-HTML converter for previews
+    function simpleMarkdownToHTML(md) {
+      // escape
+      md = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      // code blocks ```lang
+      md = md.replace(/```([\s\S]*?)```/g, (m, code) => `<pre class="bg-slate-900 text-slate-100 p-3 rounded text-xs overflow-auto">${code.replace(/&/g,'&amp;')}</pre>`);
+      // headings
+      md = md.replace(/^###### (.*$)/gim, '<h6>$1</h6>');
+      md = md.replace(/^##### (.*$)/gim, '<h5>$1</h5>');
+      md = md.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
+      md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+      md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+      // bold/italic
+      md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      md = md.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // links [text](url)
+      md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-brand underline" target="_blank" rel="noopener">$1</a>');
+      // unordered lists
+      md = md.replace(/^\s*[-\*\+]\s+(.*)/gim, '<li>$1</li>');
+      md = md.replace(/(<li>[\s\S]*<\/li>)/g, '<ul>$1</ul>');
+      // paragraphs
+      md = md.replace(/^\s*([^<\n].+)\s*$/gim, '<p>$1</p>');
+      return md;
+    }
+
+    // Attach preview handlers
+    document.querySelectorAll('.preview-btn').forEach((btn, idx) => {
+      btn.addEventListener('click', async (e) => {
+        const card = btn.closest('div[ class*="bg-slate-800"]');
+        const frame = card.querySelector('.nb-frame');
+        const path = btn.getAttribute('data-path');
+        if (!path) return;
+        // toggle: if already visible, hide
+        if (!frame.classList.contains('hidden')) {
+          frame.classList.add('hidden');
+          frame.innerHTML = '';
+          return;
+        }
+        // show loading
+        frame.classList.remove('hidden');
+        frame.innerHTML = '<div class="flex items-center justify-center h-full"><div class="text-slate-400">Loading preview…</div></div>';
+        try {
+          const nb = await fetchNotebook(path);
+          const html = renderNotebookToHTML(nb);
+          frame.innerHTML = '';
+          frame.appendChild(html);
+        } catch (err) {
+          frame.innerHTML = '<div class="p-4 text-sm text-red-400">Failed to load preview: ' + (err.message || err) + '</div>';
         }
       });
     });
   </script>
 </body>
 </html>
+```
+
+Notes:
+- This uses relative paths to your .ipynb files (no CORS) so it works when hosted on GitHub Pages.
+- The renderer is a lightweight client-side preview: it shows markdown, code cells, plain-text outputs and inline PNG outputs; it is not a full Jupyter renderer (some complex outputs or JS widgets won't work).
+- For full fidelity, consider using nbviewer (external) or converting notebooks to HTML with nbconvert and including generated HTML files in the repo.
