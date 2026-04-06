@@ -1,8 +1,4 @@
-GitHub Pages can't execute or render Jupyter notebooks natively; the repo's raw .ipynb files show JSON. To show rendered previews on your static site, embed a notebook renderer. I'll update the single-page index.html to show live rendered previews using nbviewer.js (client-side renderer) and GitHub's raw URLs.
 
-Save this single index.html (replace YOUR_GITHUB_USER and YOUR_REPO with your repo path, e.g., "alice/Data-Science-with-Python"):
-
-```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -339,9 +335,3 @@ Save this single index.html (replace YOUR_GITHUB_USER and YOUR_REPO with your re
   </script>
 </body>
 </html>
-```
-
-Notes:
-- This uses relative paths to your .ipynb files (no CORS) so it works when hosted on GitHub Pages.
-- The renderer is a lightweight client-side preview: it shows markdown, code cells, plain-text outputs and inline PNG outputs; it is not a full Jupyter renderer (some complex outputs or JS widgets won't work).
-- For full fidelity, consider using nbviewer (external) or converting notebooks to HTML with nbconvert and including generated HTML files in the repo.
