@@ -1,10 +1,9 @@
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Data Science with Python — Notebooks Preview</title>
+  <title>Data Science with Python — Notebook Previews</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -17,10 +16,6 @@
     }
   </script>
   <meta name="description" content="Rendered previews of Jupyter notebooks" />
-  <style>
-    /* minimal notebook container sizing */
-    .nb-frame { width:100%; height:560px; border:1px solid rgba(148,163,184,.12); border-radius:.5rem; overflow:hidden; background:white; }
-  </style>
 </head>
 <body class="bg-slate-900 text-slate-100 antialiased">
   <header class="sticky top-0 bg-slate-900/75 backdrop-blur z-40 border-b border-slate-800">
@@ -29,7 +24,7 @@
         <div class="w-10 h-10 rounded-md bg-gradient-to-br from-brand to-brand-600 flex items-center justify-center text-slate-900 font-bold">DS</div>
         <div>
           <div class="font-semibold">Data Science with Python</div>
-          <div class="text-xs text-slate-400">Rendered notebook previews</div>
+          <div class="text-xs text-slate-400">Notebook full-page previews</div>
         </div>
       </div>
       <nav class="hidden sm:flex gap-4 text-sm text-slate-300">
@@ -41,99 +36,28 @@
   </header>
 
   <main class="mx-auto max-w-5xl px-4 py-8 space-y-8">
+    <!-- Course -->
     <section id="course">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold">Course — Notebooks</h2>
-        <p class="text-sm text-slate-400">Rendered previews (client-side)</p>
+        <p class="text-sm text-slate-400">Open full-page preview</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Chapter 1 preview -->
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold">Chapter 1</h3>
-              <p class="text-sm text-slate-400">Introduction & setup</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Template card -->
+        <template id="card-template">
+          <article class="bg-slate-800/40 p-4 rounded-xl hover:scale-[1.01] transition">
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="font-semibold title">Chapter</h3>
+                <p class="text-sm text-slate-400 mt-1 desc">Description</p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <button class="open-preview px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium">Preview</button>
+              </div>
             </div>
-            <div class="flex gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-1.ipynb" target="_blank">Raw</a>
-              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-1.ipynb">Preview</button>
-            </div>
-          </div>
-          <div class="nb-frame hidden" data-src=""></div>
-        </div>
-
-        <!-- Chapter 2 preview -->
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold">Chapter 2</h3>
-              <p class="text-sm text-slate-400">Exploratory analysis</p>
-            </div>
-            <div class="flex gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-2.ipynb" target="_blank">Raw</a>
-              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-2.ipynb">Preview</button>
-            </div>
-          </div>
-          <div class="nb-frame hidden" data-src=""></div>
-        </div>
-
-        <!-- Repeat for Chapters 3-6 -->
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold">Chapter 3</h3>
-              <p class="text-sm text-slate-400">Data wrangling</p>
-            </div>
-            <div class="flex gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-3.ipynb" target="_blank">Raw</a>
-              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-3.ipynb">Preview</button>
-            </div>
-          </div>
-          <div class="nb-frame hidden" data-src=""></div>
-        </div>
-
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold">Chapter 4</h3>
-              <p class="text-sm text-slate-400">Visualization</p>
-            </div>
-            <div class="flex gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-4.ipynb" target="_blank">Raw</a>
-              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-4.ipynb">Preview</button>
-            </div>
-          </div>
-          <div class="nb-frame hidden" data-src=""></div>
-        </div>
-
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold">Chapter 5</h3>
-              <p class="text-sm text-slate-400">Modeling</p>
-            </div>
-            <div class="flex gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-5.ipynb" target="_blank">Raw</a>
-              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-5.ipynb">Preview</button>
-            </div>
-          </div>
-          <div class="nb-frame hidden" data-src=""></div>
-        </div>
-
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold">Chapter 6</h3>
-              <p class="text-sm text-slate-400">Advanced topics</p>
-            </div>
-            <div class="flex gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Course/Chapter-6.ipynb" target="_blank">Raw</a>
-              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Course/Chapter-6.ipynb">Preview</button>
-            </div>
-          </div>
-          <div class="nb-frame hidden" data-src=""></div>
-        </div>
+          </article>
+        </template>
       </div>
     </section>
 
@@ -141,125 +65,166 @@
     <section id="labs">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold">Lab Reports</h2>
-        <p class="text-sm text-slate-400">Rendered where possible</p>
+        <p class="text-sm text-slate-400">Open full-page preview</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold">Lab 3 &amp; 4</h3>
-              <p class="text-sm text-slate-400">auto.csv · Lab3&4.ipynb</p>
-            </div>
-            <div class="flex gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Lab-Report/Lab-3&4/Lab3&4.ipynb" target="_blank">Raw</a>
-              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Lab-Report/Lab-3&4/Lab3&4.ipynb">Preview</button>
-            </div>
-          </div>
-          <div class="nb-frame hidden"></div>
-        </div>
-
-        <div class="bg-slate-800/40 p-4 rounded-xl">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold">Lab 5</h3>
-              <p class="text-sm text-slate-400">automobileEDA.csv · Lab-5.ipynb</p>
-            </div>
-            <div class="flex gap-2">
-              <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Lab-Report/Lab-5/Lab-5.ipynb" target="_blank">Raw</a>
-              <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Lab-Report/Lab-5/Lab-5.ipynb">Preview</button>
-            </div>
-          </div>
-          <div class="nb-frame hidden"></div>
-        </div>
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="labs-grid"></div>
     </section>
 
     <!-- Practice -->
     <section id="practice">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold">Practice</h2>
-        <p class="text-sm text-slate-400">Exercises</p>
+        <p class="text-sm text-slate-400">Open full-page preview</p>
       </div>
 
-      <div class="bg-slate-800/40 p-4 rounded-xl">
-        <div class="flex items-start justify-between mb-3">
-          <div>
-            <h3 class="font-semibold">Filter-Signal-Analysis</h3>
-            <p class="text-sm text-slate-400 mt-1">Practice notebook</p>
-          </div>
-          <div class="flex gap-2">
-            <a class="px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm" href="Practice/Filter-Signal-Analysis.ipynb" target="_blank">Raw</a>
-            <button class="px-3 py-1.5 border border-slate-700 rounded-md text-sm preview-btn" data-path="Practice/Filter-Signal-Analysis.ipynb">Preview</button>
-          </div>
-        </div>
-        <div class="nb-frame hidden"></div>
-      </div>
+      <div id="practice-grid" class="grid grid-cols-1 gap-4"></div>
     </section>
   </main>
 
   <footer class="border-t border-slate-800 py-6 text-center text-sm text-slate-400">© 2026 Data Science with Python</footer>
 
-  <!-- Client-side notebook renderer using nbviewer CDN + GitHub raw fetch -->
+  <!-- Full-page preview overlay -->
+  <div id="overlay" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur"></div>
+    <div class="relative mx-auto my-10 max-w-4xl h-[80vh] bg-white rounded-lg overflow-auto shadow-2xl">
+      <div class="flex items-center justify-between p-4 border-b">
+        <div>
+          <h3 id="overlay-title" class="text-slate-900 font-semibold">Notebook</h3>
+          <div id="overlay-meta" class="text-xs text-slate-600">meta</div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a id="open-in-github" class="hidden text-sm px-3 py-1 rounded border text-slate-700 hover:bg-slate-100" target="_blank" rel="noopener">Open file</a>
+          <button id="close-overlay" class="px-3 py-1 rounded bg-slate-100 text-slate-700">Close</button>
+        </div>
+      </div>
+
+      <div id="overlay-content" class="p-6 prose max-w-none text-slate-900"></div>
+    </div>
+  </div>
+
   <script>
-    // Replace with your GitHub user/repo path
-    const REPO_RAW_BASE = location.origin + location.pathname.replace(/index\.html$|\/$/, '') || '';
-    // If deployed on GitHub Pages, raw files are accessible via relative paths (no CORS issues)
-    // Function to fetch notebook JSON and render using simple conversion to HTML via nbconvert static approach
+    // Notebook entries
+    const NOTEBOOKS = [
+      { path: 'Course/Chapter-1.ipynb', title: 'Chapter 1', desc: 'Introduction & setup' },
+      { path: 'Course/Chapter-2.ipynb', title: 'Chapter 2', desc: 'Exploratory analysis' },
+      { path: 'Course/Chapter-3.ipynb', title: 'Chapter 3', desc: 'Data wrangling' },
+      { path: 'Course/Chapter-4.ipynb', title: 'Chapter 4', desc: 'Visualization' },
+      { path: 'Course/Chapter-5.ipynb', title: 'Chapter 5', desc: 'Modeling' },
+      { path: 'Course/Chapter-6.ipynb', title: 'Chapter 6', desc: 'Advanced topics' },
+    ];
+
+    const LABS = [
+      { path: 'Lab-Report/Lab-3&4/Lab3&4.ipynb', title: 'Lab 3 & 4', desc: 'auto.csv · Lab3&4.ipynb' },
+      { path: 'Lab-Report/Lab-5/Lab-5.ipynb', title: 'Lab 5', desc: 'automobileEDA.csv · ex1data1.txt' },
+    ];
+
+    const PRACTICE = [
+      { path: 'Practice/Filter-Signal-Analysis.ipynb', title: 'Filter-Signal-Analysis', desc: 'Practice notebook' },
+    ];
+
+    // Populate grids
+    function populateGrid(list, containerSelector) {
+      const grid = document.querySelector(containerSelector);
+      const template = document.getElementById('card-template');
+      list.forEach(item => {
+        const node = template.content.cloneNode(true);
+        node.querySelector('.title').textContent = item.title;
+        node.querySelector('.desc').textContent = item.desc;
+        const btn = node.querySelector('.open-preview');
+        btn.dataset.path = item.path;
+        grid.appendChild(node);
+      });
+    }
+
+    populateGrid(NOTEBOOKS, '#course .grid');
+    populateGrid(LABS, '#labs-grid');
+    populateGrid(PRACTICE, '#practice-grid');
+
+    // Overlay controls
+    const overlay = document.getElementById('overlay');
+    const overlayContent = document.getElementById('overlay-content');
+    const overlayTitle = document.getElementById('overlay-title');
+    const overlayMeta = document.getElementById('overlay-meta');
+    const openInGithub = document.getElementById('open-in-github');
+
+    document.addEventListener('click', async (e) => {
+      const btn = e.target.closest('.open-preview');
+      if (!btn) return;
+      const path = btn.dataset.path;
+      if (!path) return;
+      // Show overlay
+      overlay.classList.remove('hidden');
+      overlayContent.innerHTML = '<div class="text-slate-600">Loading preview…</div>';
+      overlayTitle.textContent = btn.closest('article').querySelector('.title').textContent;
+      overlayMeta.textContent = path;
+      openInGithub.href = path;
+      openInGithub.classList.remove('hidden');
+
+      try {
+        const nb = await fetchNotebook(path);
+        renderNotebookToOverlay(nb);
+      } catch (err) {
+        overlayContent.innerHTML = `<div class="text-red-500">Failed to load: ${err.message || err}</div>`;
+      }
+    });
+
+    document.getElementById('close-overlay').addEventListener('click', () => {
+      overlay.classList.add('hidden');
+      overlayContent.innerHTML = '';
+      openInGithub.classList.add('hidden');
+    });
+
+    // Fetch notebook JSON via relative path (works on GitHub Pages)
     async function fetchNotebook(path) {
-      const url = path; // relative path within the repo
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('Fetch failed: ' + res.status);
+      const res = await fetch(path);
+      if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
       return res.json();
     }
 
-    // Basic renderer: convert notebook JSON cells to simple HTML (markdown & code)
-    // This is a lightweight renderer for preview — not full nbconvert fidelity.
-    function renderNotebookToHTML(nb) {
+    // Render notebook into overlay (simple renderer: markdown, code, outputs including PNG)
+    function renderNotebookToOverlay(nb) {
       const container = document.createElement('div');
-      container.className = 'p-4 bg-white text-black text-sm overflow-auto';
+      // metadata
       const meta = document.createElement('div');
-      meta.className = 'mb-3 text-xs text-slate-500';
-      meta.textContent = `Notebook: ${nb.metadata?.title || 'Untitled'} — Kernel: ${nb.metadata?.kernelspec?.name || 'unknown'}`;
+      meta.className = 'mb-4 text-sm text-slate-600';
+      meta.textContent = `Kernel: ${nb.metadata?.kernelspec?.name || 'unknown'}`;
       container.appendChild(meta);
 
-      (nb.cells || []).forEach((cell, idx) => {
+      (nb.cells || []).forEach(cell => {
         const cellWrap = document.createElement('div');
-        cellWrap.className = 'mb-3';
+        cellWrap.className = 'mb-6';
         if (cell.cell_type === 'markdown') {
           const md = cell.source.join('');
-          // render basic markdown: headings, code blocks, lists, paragraphs
           const mdEl = document.createElement('div');
           mdEl.innerHTML = simpleMarkdownToHTML(md);
-          mdEl.className = 'prose max-w-none';
+          mdEl.className = 'prose max-w-none text-slate-900';
           cellWrap.appendChild(mdEl);
         } else if (cell.cell_type === 'code') {
           const pre = document.createElement('pre');
-          pre.className = 'bg-slate-900 text-slate-100 p-3 rounded text-xs overflow-auto';
-          const code = cell.source.join('');
-          pre.textContent = code;
+          pre.className = 'bg-slate-900 text-slate-100 p-4 rounded text-sm overflow-auto';
+          pre.textContent = cell.source.join('');
           cellWrap.appendChild(pre);
 
-          // outputs (text/html/png)
           if (cell.outputs && cell.outputs.length) {
             cell.outputs.forEach(out => {
               if (out.output_type === 'stream' && out.text) {
                 const preOut = document.createElement('pre');
-                preOut.className = 'bg-slate-100 text-slate-900 p-3 rounded text-xs overflow-auto mt-2';
-                preOut.textContent = out.text.join ? out.text.join('') : out.text;
+                preOut.className = 'bg-slate-100 text-slate-900 p-3 rounded text-sm overflow-auto mt-2';
+                preOut.textContent = Array.isArray(out.text) ? out.text.join('') : out.text;
                 cellWrap.appendChild(preOut);
-              } else if (out.output_type === 'execute_result' || out.output_type === 'display_data') {
+              } else if (out.output_type === 'display_data' || out.output_type === 'execute_result') {
                 if (out.data) {
                   if (out.data['text/plain']) {
                     const preOut = document.createElement('pre');
-                    preOut.className = 'bg-slate-100 text-slate-900 p-3 rounded text-xs overflow-auto mt-2';
+                    preOut.className = 'bg-slate-100 text-slate-900 p-3 rounded text-sm overflow-auto mt-2';
                     preOut.textContent = Array.isArray(out.data['text/plain']) ? out.data['text/plain'].join('') : out.data['text/plain'];
                     cellWrap.appendChild(preOut);
                   }
                   if (out.data['image/png']) {
                     const img = document.createElement('img');
                     img.src = 'data:image/png;base64,' + out.data['image/png'];
-                    img.className = 'mt-2 rounded shadow-sm';
+                    img.className = 'mt-3 rounded shadow-sm';
                     img.style.maxWidth = '100%';
                     cellWrap.appendChild(img);
                   }
@@ -277,61 +242,47 @@
         container.appendChild(cellWrap);
       });
 
-      return container;
+      overlayContent.innerHTML = '';
+      overlayContent.appendChild(container);
+      // scroll to top of overlay
+      overlayContent.scrollTop = 0;
     }
 
-    // Very small markdown-to-HTML converter for previews
+    // Simple markdown converter (limited, for preview)
     function simpleMarkdownToHTML(md) {
-      // escape
       md = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      // code blocks ```lang
-      md = md.replace(/```([\s\S]*?)```/g, (m, code) => `<pre class="bg-slate-900 text-slate-100 p-3 rounded text-xs overflow-auto">${code.replace(/&/g,'&amp;')}</pre>`);
-      // headings
+      md = md.replace(/```([\s\S]*?)```/g, (m, code) => `<pre class="bg-slate-900 text-slate-100 p-3 rounded text-sm overflow-auto">${code.replace(/&/g,'&amp;')}</pre>`);
       md = md.replace(/^###### (.*$)/gim, '<h6>$1</h6>');
       md = md.replace(/^##### (.*$)/gim, '<h5>$1</h5>');
       md = md.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
       md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
       md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
       md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-      // bold/italic
       md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
       md = md.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      // links [text](url)
       md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-brand underline" target="_blank" rel="noopener">$1</a>');
-      // unordered lists
       md = md.replace(/^\s*[-\*\+]\s+(.*)/gim, '<li>$1</li>');
       md = md.replace(/(<li>[\s\S]*<\/li>)/g, '<ul>$1</ul>');
-      // paragraphs
       md = md.replace(/^\s*([^<\n].+)\s*$/gim, '<p>$1</p>');
       return md;
     }
 
-    // Attach preview handlers
-    document.querySelectorAll('.preview-btn').forEach((btn, idx) => {
-      btn.addEventListener('click', async (e) => {
-        const card = btn.closest('div[ class*="bg-slate-800"]');
-        const frame = card.querySelector('.nb-frame');
-        const path = btn.getAttribute('data-path');
-        if (!path) return;
-        // toggle: if already visible, hide
-        if (!frame.classList.contains('hidden')) {
-          frame.classList.add('hidden');
-          frame.innerHTML = '';
-          return;
-        }
-        // show loading
-        frame.classList.remove('hidden');
-        frame.innerHTML = '<div class="flex items-center justify-center h-full"><div class="text-slate-400">Loading preview…</div></div>';
-        try {
-          const nb = await fetchNotebook(path);
-          const html = renderNotebookToHTML(nb);
-          frame.innerHTML = '';
-          frame.appendChild(html);
-        } catch (err) {
-          frame.innerHTML = '<div class="p-4 text-sm text-red-400">Failed to load preview: ' + (err.message || err) + '</div>';
-        }
+    // Close overlay on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+        overlay.classList.add('hidden');
+        overlayContent.innerHTML = '';
+      }
+    });
+
+    // Improve links inside overlay to open in new tab
+    const observer = new MutationObserver(() => {
+      overlayContent.querySelectorAll('a').forEach(a => {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener');
       });
     });
+    observer.observe(document.getElementById('overlay-content'), { childList: true, subtree: true });
   </script>
 </body>
 </html>
