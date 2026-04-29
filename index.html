@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Data Science with Python — Notebook Previews</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Data Science — Notebook Previews</title>
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -15,274 +15,254 @@
       }
     }
   </script>
-  <meta name="description" content="Rendered previews of Jupyter notebooks" />
+  <style>
+    /* Custom Scrollbar for better UX */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #1e293b; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    /* Notebook Table Styling */
+    .nb-table-wrapper { width: 100%; overflow-x: auto; margin: 1rem 0; border: 1px solid #e2e8f0; border-radius: 0.5rem; }
+    .dataframe { width: 100%; border-collapse: collapse; font-size: 0.875rem; background: white; }
+    .dataframe th { background: #f8fafc; padding: 0.75rem; text-align: left; border-bottom: 2px solid #e2e8f0; color: #0f172a; }
+    .dataframe td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f5f9; color: #334155; white-space: nowrap; }
+    .dataframe tr:hover { background: #f1f5f9; }
+  </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased">
-  <header class="sticky top-0 bg-slate-900/75 backdrop-blur z-40 border-b border-slate-800">
-    <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-md bg-gradient-to-br from-brand to-brand-600 flex items-center justify-center text-slate-900 font-bold">DS</div>
+<body class="bg-slate-900 text-slate-100 antialiased font-sans">
+
+  <header class="sticky top-0 bg-slate-900/80 backdrop-blur-md z-40 border-b border-slate-800">
+    <div class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-400 flex items-center justify-center text-slate-900 font-black shadow-lg shadow-brand/20">DS</div>
         <div>
-          <div class="font-semibold">Data Science with Python</div>
-          <div class="text-xs text-slate-400">Notebook full-page previews</div>
+          <h1 class="font-bold text-lg tracking-tight">Data Science with Python</h1>
+          <p class="text-xs text-slate-400 uppercase tracking-widest font-medium">Interactive Notebook Previews</p>
         </div>
       </div>
-      <nav class="hidden sm:flex gap-4 text-sm text-slate-300">
-        <a href="#course" class="hover:text-white">Course</a>
-        <a href="#labs" class="hover:text-white">Lab Reports</a>
-        <a href="#practice" class="hover:text-white">Practice</a>
+      <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-400">
+        <a href="#course" class="hover:text-brand transition-colors">Course</a>
+        <a href="#labs" class="hover:text-brand transition-colors">Lab Reports</a>
+        <a href="#practice" class="hover:text-brand transition-colors">Practice</a>
       </nav>
     </div>
   </header>
 
-  <main class="mx-auto max-w-5xl px-4 py-8 space-y-8">
-    <!-- Course -->
+  <main class="mx-auto max-w-6xl px-6 py-12 space-y-16">
     <section id="course">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold">Course — Notebooks</h2>
-        <p class="text-sm text-slate-400">Open full-page preview</p>
+      <div class="flex items-baseline gap-3 mb-8 border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold">Course Modules</h2>
+        <span class="text-slate-500 text-sm">Official Curriculum</span>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Template card -->
-        <template id="card-template">
-          <article class="bg-slate-800/40 p-4 rounded-xl hover:scale-[1.01] transition">
-            <div class="flex items-start justify-between">
-              <div>
-                <h3 class="font-semibold title">Chapter</h3>
-                <p class="text-sm text-slate-400 mt-1 desc">Description</p>
-              </div>
-              <div class="flex flex-col gap-2">
-                <button class="open-preview px-3 py-1.5 bg-brand text-slate-900 rounded-md text-sm font-medium">Preview</button>
-              </div>
-            </div>
-          </article>
-        </template>
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="course-grid"></div>
     </section>
 
-    <!-- Labs -->
     <section id="labs">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold">Lab Reports</h2>
-        <p class="text-sm text-slate-400">Open full-page preview</p>
+      <div class="flex items-baseline gap-3 mb-8 border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold">Lab Reports</h2>
+        <span class="text-slate-500 text-sm">Applied Analysis</span>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="labs-grid"></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="labs-grid"></div>
     </section>
 
-    <!-- Practice -->
     <section id="practice">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold">Practice</h2>
-        <p class="text-sm text-slate-400">Open full-page preview</p>
+      <div class="flex items-baseline gap-3 mb-8 border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold">Practice</h2>
+        <span class="text-slate-500 text-sm">Self-Study</span>
       </div>
-
-      <div id="practice-grid" class="grid grid-cols-1 gap-4"></div>
+      <div id="practice-grid" class="grid grid-cols-1 gap-6"></div>
     </section>
   </main>
 
-  <footer class="border-t border-slate-800 py-6 text-center text-sm text-slate-400">© 2026 Data Science with Python</footer>
+  <footer class="bg-slate-950 border-t border-slate-800 py-10 text-center">
+    <p class="text-sm text-slate-500">© 2026 Data Science with Python • Generated for GitHub Pages</p>
+  </footer>
 
-  <!-- Full-page preview overlay -->
-  <div id="overlay" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/70 backdrop-blur"></div>
-    <div class="relative mx-auto my-10 max-w-4xl h-[80vh] bg-white rounded-lg overflow-auto shadow-2xl">
-      <div class="flex items-center justify-between p-4 border-b">
+  <template id="card-template">
+    <article class="group bg-slate-800/30 border border-slate-700/50 p-5 rounded-2xl hover:border-brand/50 hover:bg-slate-800/60 transition-all duration-300">
+      <div class="flex flex-col h-full justify-between gap-4">
         <div>
-          <h3 id="overlay-title" class="text-slate-900 font-semibold">Notebook</h3>
-          <div id="overlay-meta" class="text-xs text-slate-600">meta</div>
+          <div class="text-brand text-xs font-bold mb-2 uppercase tracking-wider category">Category</div>
+          <h3 class="text-lg font-bold text-white group-hover:text-brand transition-colors title">Title</h3>
+          <p class="text-sm text-slate-400 mt-2 line-clamp-2 desc">Description</p>
         </div>
-        <div class="flex items-center gap-2">
-          <a id="open-in-github" class="hidden text-sm px-3 py-1 rounded border text-slate-700 hover:bg-slate-100" target="_blank" rel="noopener">Open file</a>
-          <button id="close-overlay" class="px-3 py-1 rounded bg-slate-100 text-slate-700">Close</button>
+        <button class="open-preview w-full py-2.5 bg-slate-700 hover:bg-brand text-white hover:text-slate-900 rounded-xl text-sm font-semibold transition-all">
+          View Preview
+        </button>
+      </div>
+    </article>
+  </template>
+
+  <div id="overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6">
+    <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm"></div>
+    <div class="relative w-full max-w-5xl h-full max-h-[90vh] bg-slate-50 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+      <div class="flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-brand/10 rounded-lg"><svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+          <div>
+            <h3 id="overlay-title" class="text-slate-900 font-bold leading-tight">Notebook</h3>
+            <p id="overlay-meta" class="text-[10px] text-slate-500 font-mono"></p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a id="open-in-github" class="hidden text-xs font-bold px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition-colors" target="_blank" rel="noopener">Source File</a>
+          <button id="close-overlay" class="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
         </div>
       </div>
 
-      <div id="overlay-content" class="p-6 prose max-w-none text-slate-900"></div>
+      <div id="overlay-content" class="flex-1 overflow-y-auto p-8 bg-white scroll-smooth">
+        </div>
     </div>
   </div>
 
   <script>
-    // Notebook entries
-    const NOTEBOOKS = [
-      { path: 'Course/Chapter-1.ipynb', title: 'Chapter 1', desc: 'Introduction & setup' },
-      { path: 'Course/Chapter-2.ipynb', title: 'Chapter 2', desc: 'Exploratory analysis' },
-      { path: 'Course/Chapter-3.ipynb', title: 'Chapter 3', desc: 'Data wrangling' },
-      { path: 'Course/Chapter-4.ipynb', title: 'Chapter 4', desc: 'Visualization' },
-      { path: 'Course/Chapter-5.ipynb', title: 'Chapter 5', desc: 'Modeling' },
-      { path: 'Course/Chapter-6.ipynb', title: 'Chapter 6', desc: 'Advanced topics' },
-    ];
+    const DATA = {
+      course: [
+        { path: 'Course/Chapter-1.ipynb', title: 'Chapter 1', desc: 'Environment setup and Python basics.' },
+        { path: 'Course/Chapter-2.ipynb', title: 'Chapter 2', desc: 'Introduction to Numpy and Pandas arrays.' },
+        { path: 'Course/Chapter-3.ipynb', title: 'Chapter 3', desc: 'Advanced Data Cleaning and Wrangling.' }
+      ],
+      labs: [
+        { path: 'Lab-Report/Lab-3&4/Lab3&4.ipynb', title: 'Lab 3 & 4', desc: 'Automobile price regression analysis.' },
+        { path: 'Lab-Report/Lab-5/Lab-5.ipynb', title: 'Lab 5', desc: 'Model evaluation and refinement techniques.' }
+      ],
+      practice: [
+        { path: 'Practice/Filter-Signal-Analysis.ipynb', title: 'Signal Analysis', desc: 'Filtering noise from data streams.' }
+      ]
+    };
 
-    const LABS = [
-      { path: 'Lab-Report/Lab-3&4/Lab3&4.ipynb', title: 'Lab 3 & 4', desc: 'auto.csv · Lab3&4.ipynb' },
-      { path: 'Lab-Report/Lab-5/Lab-5.ipynb', title: 'Lab 5', desc: 'automobileEDA.csv · ex1data1.txt' },
-    ];
-
-    const PRACTICE = [
-      { path: 'Practice/Filter-Signal-Analysis.ipynb', title: 'Filter-Signal-Analysis', desc: 'Practice notebook' },
-    ];
-
-    // Populate grids
-    function populateGrid(list, containerSelector) {
-      const grid = document.querySelector(containerSelector);
+    function populate(items, containerId, categoryLabel) {
+      const grid = document.getElementById(containerId);
       const template = document.getElementById('card-template');
-      list.forEach(item => {
+      items.forEach(item => {
         const node = template.content.cloneNode(true);
         node.querySelector('.title').textContent = item.title;
         node.querySelector('.desc').textContent = item.desc;
-        const btn = node.querySelector('.open-preview');
-        btn.dataset.path = item.path;
+        node.querySelector('.category').textContent = categoryLabel;
+        node.querySelector('.open-preview').dataset.path = item.path;
         grid.appendChild(node);
       });
     }
 
-    populateGrid(NOTEBOOKS, '#course .grid');
-    populateGrid(LABS, '#labs-grid');
-    populateGrid(PRACTICE, '#practice-grid');
+    populate(DATA.course, 'course-grid', 'Course');
+    populate(DATA.labs, 'labs-grid', 'Lab Report');
+    populate(DATA.practice, 'practice-grid', 'Practice');
 
-    // Overlay controls
     const overlay = document.getElementById('overlay');
     const overlayContent = document.getElementById('overlay-content');
     const overlayTitle = document.getElementById('overlay-title');
     const overlayMeta = document.getElementById('overlay-meta');
-    const openInGithub = document.getElementById('open-in-github');
+    const githubBtn = document.getElementById('open-in-github');
 
     document.addEventListener('click', async (e) => {
       const btn = e.target.closest('.open-preview');
       if (!btn) return;
+      
       const path = btn.dataset.path;
-      if (!path) return;
-      // Show overlay
       overlay.classList.remove('hidden');
-      overlayContent.innerHTML = '<div class="text-slate-600">Loading preview…</div>';
+      document.body.classList.add('overflow-hidden'); // Stop scroll
+      
+      overlayContent.innerHTML = `
+        <div class="flex flex-col items-center justify-center py-20 text-slate-400 animate-pulse">
+          <svg class="w-12 h-12 mb-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          <span class="font-medium">Rendering Notebook...</span>
+        </div>`;
+      
       overlayTitle.textContent = btn.closest('article').querySelector('.title').textContent;
       overlayMeta.textContent = path;
-      openInGithub.href = path;
-      openInGithub.classList.remove('hidden');
+      githubBtn.href = path;
+      githubBtn.classList.remove('hidden');
 
       try {
-        const nb = await fetchNotebook(path);
-        renderNotebookToOverlay(nb);
+        const res = await fetch(path);
+        const nb = await res.json();
+        renderNotebook(nb);
       } catch (err) {
-        overlayContent.innerHTML = `<div class="text-red-500">Failed to load: ${err.message || err}</div>`;
+        overlayContent.innerHTML = `<div class="p-6 bg-red-50 text-red-600 rounded-xl border border-red-100">Failed to load: ${path}</div>`;
       }
     });
 
-    document.getElementById('close-overlay').addEventListener('click', () => {
-      overlay.classList.add('hidden');
-      overlayContent.innerHTML = '';
-      openInGithub.classList.add('hidden');
-    });
-
-    // Fetch notebook JSON via relative path (works on GitHub Pages)
-    async function fetchNotebook(path) {
-      const res = await fetch(path);
-      if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
-      return res.json();
-    }
-
-    // Render notebook into overlay (simple renderer: markdown, code, outputs including PNG)
-    function renderNotebookToOverlay(nb) {
-      const container = document.createElement('div');
-      // metadata
-      const meta = document.createElement('div');
-      meta.className = 'mb-4 text-sm text-slate-600';
-      meta.textContent = `Kernel: ${nb.metadata?.kernelspec?.name || 'unknown'}`;
-      container.appendChild(meta);
+    function renderNotebook(nb) {
+      const root = document.createElement('div');
+      root.className = 'max-w-4xl mx-auto space-y-8';
 
       (nb.cells || []).forEach(cell => {
-        const cellWrap = document.createElement('div');
-        cellWrap.className = 'mb-6';
+        const cellDiv = document.createElement('div');
+        
         if (cell.cell_type === 'markdown') {
-          const md = cell.source.join('');
-          const mdEl = document.createElement('div');
-          mdEl.innerHTML = simpleMarkdownToHTML(md);
-          mdEl.className = 'prose max-w-none text-slate-900';
-          cellWrap.appendChild(mdEl);
-        } else if (cell.cell_type === 'code') {
-          const pre = document.createElement('pre');
-          pre.className = 'bg-slate-900 text-slate-100 p-4 rounded text-sm overflow-auto';
-          pre.textContent = cell.source.join('');
-          cellWrap.appendChild(pre);
+          cellDiv.className = 'prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-600';
+          cellDiv.innerHTML = simpleMarkdown(cell.source.join(''));
+        } 
+        else if (cell.cell_type === 'code') {
+          cellDiv.className = 'space-y-3';
+          
+          // Code Input
+          const codePre = document.createElement('pre');
+          codePre.className = 'bg-slate-900 text-slate-100 p-5 rounded-xl text-xs font-mono overflow-x-auto shadow-inner border border-slate-800';
+          codePre.textContent = cell.source.join('');
+          cellDiv.appendChild(codePre);
 
-          if (cell.outputs && cell.outputs.length) {
+          // Code Outputs
+          if (cell.outputs) {
             cell.outputs.forEach(out => {
-              if (out.output_type === 'stream' && out.text) {
-                const preOut = document.createElement('pre');
-                preOut.className = 'bg-slate-100 text-slate-900 p-3 rounded text-sm overflow-auto mt-2';
-                preOut.textContent = Array.isArray(out.text) ? out.text.join('') : out.text;
-                cellWrap.appendChild(preOut);
-              } else if (out.output_type === 'display_data' || out.output_type === 'execute_result') {
-                if (out.data) {
-                  if (out.data['text/plain']) {
-                    const preOut = document.createElement('pre');
-                    preOut.className = 'bg-slate-100 text-slate-900 p-3 rounded text-sm overflow-auto mt-2';
-                    preOut.textContent = Array.isArray(out.data['text/plain']) ? out.data['text/plain'].join('') : out.data['text/plain'];
-                    cellWrap.appendChild(preOut);
-                  }
-                  if (out.data['image/png']) {
-                    const img = document.createElement('img');
-                    img.src = 'data:image/png;base64,' + out.data['image/png'];
-                    img.className = 'mt-3 rounded shadow-sm';
-                    img.style.maxWidth = '100%';
-                    cellWrap.appendChild(img);
-                  }
-                  if (out.data['text/html']) {
-                    const div = document.createElement('div');
-                    div.className = 'mt-2';
-                    div.innerHTML = Array.isArray(out.data['text/html']) ? out.data['text/html'].join('') : out.data['text/html'];
-                    cellWrap.appendChild(div);
-                  }
+              const outDiv = document.createElement('div');
+              outDiv.className = 'ml-4 border-l-4 border-slate-100 pl-4';
+
+              if (out.output_type === 'stream') {
+                const stream = document.createElement('pre');
+                stream.className = 'text-[11px] text-slate-500 font-mono whitespace-pre-wrap';
+                stream.textContent = Array.isArray(out.text) ? out.text.join('') : out.text;
+                outDiv.appendChild(stream);
+              } 
+              else if (out.data) {
+                // Table/HTML Output
+                if (out.data['text/html']) {
+                  const wrap = document.createElement('div');
+                  wrap.className = 'nb-table-wrapper shadow-sm';
+                  wrap.innerHTML = Array.isArray(out.data['text/html']) ? out.data['text/html'].join('') : out.data['text/html'];
+                  outDiv.appendChild(wrap);
+                }
+                // Image Output
+                if (out.data['image/png']) {
+                  const img = document.createElement('img');
+                  img.src = 'data:image/png;base64,' + out.data['image/png'];
+                  img.className = 'rounded-lg border border-slate-200 my-4 max-w-full hover:scale-[1.02] transition-transform duration-500 cursor-zoom-in';
+                  outDiv.appendChild(img);
                 }
               }
+              cellDiv.appendChild(outDiv);
             });
           }
         }
-        container.appendChild(cellWrap);
+        root.appendChild(cellDiv);
       });
 
       overlayContent.innerHTML = '';
-      overlayContent.appendChild(container);
-      // scroll to top of overlay
+      overlayContent.appendChild(root);
       overlayContent.scrollTop = 0;
     }
 
-    // Simple markdown converter (limited, for preview)
-    function simpleMarkdownToHTML(md) {
-      md = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      md = md.replace(/```([\s\S]*?)```/g, (m, code) => `<pre class="bg-slate-900 text-slate-100 p-3 rounded text-sm overflow-auto">${code.replace(/&/g,'&amp;')}</pre>`);
-      md = md.replace(/^###### (.*$)/gim, '<h6>$1</h6>');
-      md = md.replace(/^##### (.*$)/gim, '<h5>$1</h5>');
-      md = md.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
-      md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-      md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-      md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-      md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      md = md.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-brand underline" target="_blank" rel="noopener">$1</a>');
-      md = md.replace(/^\s*[-\*\+]\s+(.*)/gim, '<li>$1</li>');
-      md = md.replace(/(<li>[\s\S]*<\/li>)/g, '<ul>$1</ul>');
-      md = md.replace(/^\s*([^<\n].+)\s*$/gim, '<p>$1</p>');
-      return md;
+    function simpleMarkdown(md) {
+      // Basic parser for notebook previews
+      return md
+        .replace(/### (.*)/g, '<h3 class="text-xl font-bold mt-6 mb-2">$1</h3>')
+        .replace(/## (.*)/g, '<h2 class="text-2xl font-bold border-b pb-2 mt-8 mb-4">$1</h2>')
+        .replace(/# (.*)/g, '<h1 class="text-3xl font-black mb-6">$1</h1>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/`(.*?)`/g, '<code class="bg-slate-100 px-1 rounded text-pink-600">$1</code>')
+        .split('\n').map(line => line.startsWith('<h') ? line : `<p class="mb-4">${line}</p>`).join('');
     }
 
-    // Close overlay on ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
-        overlay.classList.add('hidden');
-        overlayContent.innerHTML = '';
-      }
+    document.getElementById('close-overlay').addEventListener('click', () => {
+      overlay.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
     });
 
-    // Improve links inside overlay to open in new tab
-    const observer = new MutationObserver(() => {
-      overlayContent.querySelectorAll('a').forEach(a => {
-        a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener');
-      });
-    });
-    observer.observe(document.getElementById('overlay-content'), { childList: true, subtree: true });
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.getElementById('close-overlay').click(); });
   </script>
 </body>
 </html>
