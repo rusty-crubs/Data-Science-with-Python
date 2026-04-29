@@ -16,146 +16,140 @@
     }
   </script>
   <style>
-    /* Custom Scrollbar for better UX */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #1e293b; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    /* Table & Scroll Customization */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    
+    .nb-table-wrapper { 
+      width: 100%; 
+      overflow-x: auto; 
+      margin: 1.5rem 0; 
+      border-radius: 0.75rem; 
+      border: 1px solid #e2e8f0;
+      background: white;
+    }
+    .dataframe { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .dataframe th { background: #f1f5f9; padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0; color: #1e293b; }
+    .dataframe td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; color: #475569; white-space: nowrap; }
+    .dataframe tr:hover { background: #f8fafc; }
 
-    /* Notebook Table Styling */
-    .nb-table-wrapper { width: 100%; overflow-x: auto; margin: 1rem 0; border: 1px solid #e2e8f0; border-radius: 0.5rem; }
-    .dataframe { width: 100%; border-collapse: collapse; font-size: 0.875rem; background: white; }
-    .dataframe th { background: #f8fafc; padding: 0.75rem; text-align: left; border-bottom: 2px solid #e2e8f0; color: #0f172a; }
-    .dataframe td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f5f9; color: #334155; white-space: nowrap; }
-    .dataframe tr:hover { background: #f1f5f9; }
+    /* Fix for image overflow */
+    .nb-image { max-width: 100%; height: auto; display: block; margin: 1.5rem auto; border-radius: 0.5rem; }
   </style>
 </head>
 <body class="bg-slate-900 text-slate-100 antialiased font-sans">
 
-  <header class="sticky top-0 bg-slate-900/80 backdrop-blur-md z-40 border-b border-slate-800">
+  <header class="sticky top-0 bg-slate-900/90 backdrop-blur-md z-40 border-b border-slate-800">
     <div class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-400 flex items-center justify-center text-slate-900 font-black shadow-lg shadow-brand/20">DS</div>
+        <div class="w-10 h-10 rounded-lg bg-brand flex items-center justify-center text-slate-900 font-black">DS</div>
         <div>
-          <h1 class="font-bold text-lg tracking-tight">Data Science with Python</h1>
-          <p class="text-xs text-slate-400 uppercase tracking-widest font-medium">Interactive Notebook Previews</p>
+          <h1 class="font-bold text-lg">Data Science with Python</h1>
+          <p class="text-[10px] text-slate-400 uppercase tracking-tighter">Full Notebook Previews</p>
         </div>
       </div>
-      <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-400">
-        <a href="#course" class="hover:text-brand transition-colors">Course</a>
-        <a href="#labs" class="hover:text-brand transition-colors">Lab Reports</a>
-        <a href="#practice" class="hover:text-brand transition-colors">Practice</a>
+      <nav class="hidden sm:flex gap-6 text-sm font-medium text-slate-400">
+        <a href="#course" class="hover:text-white transition">Course</a>
+        <a href="#labs" class="hover:text-white transition">Labs</a>
+        <a href="#practice" class="hover:text-white transition">Practice</a>
       </nav>
     </div>
   </header>
 
-  <main class="mx-auto max-w-6xl px-6 py-12 space-y-16">
+  <main class="mx-auto max-w-6xl px-6 py-10 space-y-12">
     <section id="course">
-      <div class="flex items-baseline gap-3 mb-8 border-b border-slate-800 pb-4">
-        <h2 class="text-2xl font-bold">Course Modules</h2>
-        <span class="text-slate-500 text-sm">Official Curriculum</span>
-      </div>
+      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+        <span class="w-2 h-6 bg-brand rounded-full"></span> Course Modules
+      </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="course-grid"></div>
     </section>
 
     <section id="labs">
-      <div class="flex items-baseline gap-3 mb-8 border-b border-slate-800 pb-4">
-        <h2 class="text-2xl font-bold">Lab Reports</h2>
-        <span class="text-slate-500 text-sm">Applied Analysis</span>
-      </div>
+      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+        <span class="w-2 h-6 bg-brand rounded-full"></span> Lab Reports
+      </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="labs-grid"></div>
     </section>
 
     <section id="practice">
-      <div class="flex items-baseline gap-3 mb-8 border-b border-slate-800 pb-4">
-        <h2 class="text-2xl font-bold">Practice</h2>
-        <span class="text-slate-500 text-sm">Self-Study</span>
-      </div>
-      <div id="practice-grid" class="grid grid-cols-1 gap-6"></div>
+      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+        <span class="w-2 h-6 bg-brand rounded-full"></span> Practice
+      </h2>
+      <div id="practice-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
     </section>
   </main>
 
-  <footer class="bg-slate-950 border-t border-slate-800 py-10 text-center">
-    <p class="text-sm text-slate-500">© 2026 Data Science with Python • Generated for GitHub Pages</p>
-  </footer>
-
   <template id="card-template">
-    <article class="group bg-slate-800/30 border border-slate-700/50 p-5 rounded-2xl hover:border-brand/50 hover:bg-slate-800/60 transition-all duration-300">
-      <div class="flex flex-col h-full justify-between gap-4">
-        <div>
-          <div class="text-brand text-xs font-bold mb-2 uppercase tracking-wider category">Category</div>
-          <h3 class="text-lg font-bold text-white group-hover:text-brand transition-colors title">Title</h3>
-          <p class="text-sm text-slate-400 mt-2 line-clamp-2 desc">Description</p>
-        </div>
-        <button class="open-preview w-full py-2.5 bg-slate-700 hover:bg-brand text-white hover:text-slate-900 rounded-xl text-sm font-semibold transition-all">
-          View Preview
-        </button>
+    <article class="bg-slate-800/40 border border-slate-700/50 p-5 rounded-2xl flex flex-col justify-between hover:border-brand/40 transition-all group">
+      <div>
+        <h3 class="font-bold text-white group-hover:text-brand transition title"></h3>
+        <p class="text-sm text-slate-400 mt-2 desc"></p>
       </div>
+      <button class="open-preview mt-6 w-full py-2 bg-slate-700 hover:bg-brand text-white hover:text-slate-900 rounded-lg text-sm font-bold transition">
+        Preview Notebook
+      </button>
     </article>
   </template>
 
-  <div id="overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6">
-    <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm"></div>
-    <div class="relative w-full max-w-5xl h-full max-h-[90vh] bg-slate-50 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
-      <div class="flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200">
-        <div class="flex items-center gap-3">
-          <div class="p-2 bg-brand/10 rounded-lg"><svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
-          <div>
-            <h3 id="overlay-title" class="text-slate-900 font-bold leading-tight">Notebook</h3>
-            <p id="overlay-meta" class="text-[10px] text-slate-500 font-mono"></p>
-          </div>
+  <div id="overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+    <div class="relative w-full max-w-5xl h-full max-h-[85vh] bg-white rounded-2xl overflow-hidden flex flex-col shadow-2xl">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+        <div>
+          <h3 id="overlay-title" class="text-slate-900 font-bold"></h3>
+          <p id="overlay-meta" class="text-[10px] text-slate-500 font-mono"></p>
         </div>
-        <div class="flex items-center gap-3">
-          <a id="open-in-github" class="hidden text-xs font-bold px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition-colors" target="_blank" rel="noopener">Source File</a>
-          <button id="close-overlay" class="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-          </button>
+        <div class="flex gap-2">
+          <a id="open-github" target="_blank" class="text-xs px-3 py-1.5 bg-slate-900 text-white rounded-md font-medium">View Source</a>
+          <button id="close-overlay" class="px-3 py-1.5 bg-slate-200 text-slate-700 rounded-md text-xs font-bold hover:bg-slate-300">Close</button>
         </div>
       </div>
-
-      <div id="overlay-content" class="flex-1 overflow-y-auto p-8 bg-white scroll-smooth">
-        </div>
+      <div id="overlay-content" class="flex-1 overflow-y-auto p-8 prose prose-slate max-w-none"></div>
     </div>
   </div>
 
   <script>
-    const DATA = {
-      course: [
-        { path: 'Course/Chapter-1.ipynb', title: 'Chapter 1', desc: 'Environment setup and Python basics.' },
-        { path: 'Course/Chapter-2.ipynb', title: 'Chapter 2', desc: 'Introduction to Numpy and Pandas arrays.' },
-        { path: 'Course/Chapter-3.ipynb', title: 'Chapter 3', desc: 'Advanced Data Cleaning and Wrangling.' }
-      ],
-      labs: [
-        { path: 'Lab-Report/Lab-3&4/Lab3&4.ipynb', title: 'Lab 3 & 4', desc: 'Automobile price regression analysis.' },
-        { path: 'Lab-Report/Lab-5/Lab-5.ipynb', title: 'Lab 5', desc: 'Model evaluation and refinement techniques.' }
-      ],
-      practice: [
-        { path: 'Practice/Filter-Signal-Analysis.ipynb', title: 'Signal Analysis', desc: 'Filtering noise from data streams.' }
-      ]
-    };
+    // FULL DATA LIST
+    const NOTEBOOKS = [
+      { path: 'Course/Chapter-1.ipynb', title: 'Chapter 1', desc: 'Introduction & setup' },
+      { path: 'Course/Chapter-2.ipynb', title: 'Chapter 2', desc: 'Exploratory analysis' },
+      { path: 'Course/Chapter-3.ipynb', title: 'Chapter 3', desc: 'Data wrangling' },
+      { path: 'Course/Chapter-4.ipynb', title: 'Chapter 4', desc: 'Visualization' },
+      { path: 'Course/Chapter-5.ipynb', title: 'Chapter 5', desc: 'Modeling' },
+      { path: 'Course/Chapter-6.ipynb', title: 'Chapter 6', desc: 'Advanced topics' }
+    ];
 
-    function populate(items, containerId, categoryLabel) {
+    const LABS = [
+      { path: 'Lab-Report/Lab-3&4/Lab3&4.ipynb', title: 'Lab 3 & 4', desc: 'Auto.csv regression and analysis' },
+      { path: 'Lab-Report/Lab-5/Lab-5.ipynb', title: 'Lab 5', desc: 'EDA and Linear Regression practice' }
+    ];
+
+    const PRACTICE = [
+      { path: 'Practice/Filter-Signal-Analysis.ipynb', title: 'Signal Analysis', desc: 'Digital signal filtering notebook' }
+    ];
+
+    function populateGrid(list, containerId) {
       const grid = document.getElementById(containerId);
       const template = document.getElementById('card-template');
-      items.forEach(item => {
+      list.forEach(item => {
         const node = template.content.cloneNode(true);
         node.querySelector('.title').textContent = item.title;
         node.querySelector('.desc').textContent = item.desc;
-        node.querySelector('.category').textContent = categoryLabel;
         node.querySelector('.open-preview').dataset.path = item.path;
         grid.appendChild(node);
       });
     }
 
-    populate(DATA.course, 'course-grid', 'Course');
-    populate(DATA.labs, 'labs-grid', 'Lab Report');
-    populate(DATA.practice, 'practice-grid', 'Practice');
+    populateGrid(NOTEBOOKS, 'course-grid');
+    populateGrid(LABS, 'labs-grid');
+    populateGrid(PRACTICE, 'practice-grid');
 
     const overlay = document.getElementById('overlay');
     const overlayContent = document.getElementById('overlay-content');
     const overlayTitle = document.getElementById('overlay-title');
     const overlayMeta = document.getElementById('overlay-meta');
-    const githubBtn = document.getElementById('open-in-github');
+    const githubLink = document.getElementById('open-github');
 
     document.addEventListener('click', async (e) => {
       const btn = e.target.closest('.open-preview');
@@ -163,106 +157,78 @@
       
       const path = btn.dataset.path;
       overlay.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden'); // Stop scroll
-      
-      overlayContent.innerHTML = `
-        <div class="flex flex-col items-center justify-center py-20 text-slate-400 animate-pulse">
-          <svg class="w-12 h-12 mb-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-          <span class="font-medium">Rendering Notebook...</span>
-        </div>`;
-      
       overlayTitle.textContent = btn.closest('article').querySelector('.title').textContent;
       overlayMeta.textContent = path;
-      githubBtn.href = path;
-      githubBtn.classList.remove('hidden');
+      githubLink.href = path;
+      overlayContent.innerHTML = '<div class="flex justify-center p-20 animate-pulse text-slate-400">Loading notebook data...</div>';
 
       try {
         const res = await fetch(path);
         const nb = await res.json();
         renderNotebook(nb);
       } catch (err) {
-        overlayContent.innerHTML = `<div class="p-6 bg-red-50 text-red-600 rounded-xl border border-red-100">Failed to load: ${path}</div>`;
+        overlayContent.innerHTML = `<p class="text-red-500">Error loading notebook: ${err.message}</p>`;
       }
     });
 
     function renderNotebook(nb) {
-      const root = document.createElement('div');
-      root.className = 'max-w-4xl mx-auto space-y-8';
+      overlayContent.innerHTML = '';
+      const container = document.createElement('div');
 
       (nb.cells || []).forEach(cell => {
-        const cellDiv = document.createElement('div');
-        
-        if (cell.cell_type === 'markdown') {
-          cellDiv.className = 'prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-600';
-          cellDiv.innerHTML = simpleMarkdown(cell.source.join(''));
-        } 
-        else if (cell.cell_type === 'code') {
-          cellDiv.className = 'space-y-3';
-          
-          // Code Input
-          const codePre = document.createElement('pre');
-          codePre.className = 'bg-slate-900 text-slate-100 p-5 rounded-xl text-xs font-mono overflow-x-auto shadow-inner border border-slate-800';
-          codePre.textContent = cell.source.join('');
-          cellDiv.appendChild(codePre);
+        const cellWrap = document.createElement('div');
+        cellWrap.className = 'mb-10';
 
-          // Code Outputs
+        if (cell.cell_type === 'markdown') {
+          const div = document.createElement('div');
+          div.innerHTML = simpleMarkdown(cell.source.join(''));
+          cellWrap.appendChild(div);
+        } else if (cell.cell_type === 'code') {
+          const pre = document.createElement('pre');
+          pre.className = 'bg-slate-900 text-slate-200 p-4 rounded-lg text-xs overflow-x-auto border border-slate-800 shadow-lg';
+          pre.textContent = cell.source.join('');
+          cellWrap.appendChild(pre);
+
           if (cell.outputs) {
             cell.outputs.forEach(out => {
-              const outDiv = document.createElement('div');
-              outDiv.className = 'ml-4 border-l-4 border-slate-100 pl-4';
-
               if (out.output_type === 'stream') {
                 const stream = document.createElement('pre');
-                stream.className = 'text-[11px] text-slate-500 font-mono whitespace-pre-wrap';
+                stream.className = 'text-[11px] text-slate-500 mt-2 ml-4 border-l-2 border-slate-200 pl-4';
                 stream.textContent = Array.isArray(out.text) ? out.text.join('') : out.text;
-                outDiv.appendChild(stream);
-              } 
-              else if (out.data) {
-                // Table/HTML Output
+                cellWrap.appendChild(stream);
+              } else if (out.data) {
                 if (out.data['text/html']) {
-                  const wrap = document.createElement('div');
-                  wrap.className = 'nb-table-wrapper shadow-sm';
-                  wrap.innerHTML = Array.isArray(out.data['text/html']) ? out.data['text/html'].join('') : out.data['text/html'];
-                  outDiv.appendChild(wrap);
+                  const tableWrap = document.createElement('div');
+                  tableWrap.className = 'nb-table-wrapper shadow-sm';
+                  tableWrap.innerHTML = Array.isArray(out.data['text/html']) ? out.data['text/html'].join('') : out.data['text/html'];
+                  cellWrap.appendChild(tableWrap);
                 }
-                // Image Output
                 if (out.data['image/png']) {
                   const img = document.createElement('img');
                   img.src = 'data:image/png;base64,' + out.data['image/png'];
-                  img.className = 'rounded-lg border border-slate-200 my-4 max-w-full hover:scale-[1.02] transition-transform duration-500 cursor-zoom-in';
-                  outDiv.appendChild(img);
+                  img.className = 'nb-image border border-slate-100 shadow-md';
+                  cellWrap.appendChild(img);
                 }
               }
-              cellDiv.appendChild(outDiv);
             });
           }
         }
-        root.appendChild(cellDiv);
+        container.appendChild(cellWrap);
       });
-
-      overlayContent.innerHTML = '';
-      overlayContent.appendChild(root);
-      overlayContent.scrollTop = 0;
+      overlayContent.appendChild(container);
     }
 
     function simpleMarkdown(md) {
-      // Basic parser for notebook previews
       return md
-        .replace(/### (.*)/g, '<h3 class="text-xl font-bold mt-6 mb-2">$1</h3>')
-        .replace(/## (.*)/g, '<h2 class="text-2xl font-bold border-b pb-2 mt-8 mb-4">$1</h2>')
-        .replace(/# (.*)/g, '<h1 class="text-3xl font-black mb-6">$1</h1>')
+        .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-black mb-4">$1</h1>')
+        .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold border-b pb-2 mb-4 mt-8">$1</h2>')
+        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold mb-2 mt-6">$1</h3>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/`(.*?)`/g, '<code class="bg-slate-100 px-1 rounded text-pink-600">$1</code>')
-        .split('\n').map(line => line.startsWith('<h') ? line : `<p class="mb-4">${line}</p>`).join('');
+        .replace(/`(.*?)`/g, '<code class="bg-slate-100 px-1 rounded text-cyan-700">$1</code>')
+        .split('\n').map(l => l.startsWith('<h') ? l : `<p class="mb-3">${l}</p>`).join('');
     }
 
-    document.getElementById('close-overlay').addEventListener('click', () => {
-      overlay.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
-    });
-
-    // Close on Escape key
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.getElementById('close-overlay').click(); });
+    document.getElementById('close-overlay').onclick = () => overlay.classList.add('hidden');
   </script>
 </body>
 </html>
