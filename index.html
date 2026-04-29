@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Data Science — Notebook Previews</title>
+  <title>Data Science Portfolio — Notebook Previews</title>
   <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <script>
     tailwind.config = {
@@ -16,219 +16,240 @@
     }
   </script>
   <style>
-    /* Table & Scroll Customization */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-    
+    /* Professional Table Rendering: Mimics Excel/Windows Application */
     .nb-table-wrapper { 
-      width: 100%; 
-      overflow-x: auto; 
-      margin: 1.5rem 0; 
-      border-radius: 0.75rem; 
-      border: 1px solid #e2e8f0;
-      background: white;
+      width: 100%; overflow-x: auto; margin: 1.5rem 0; 
+      border: 1px solid #e2e8f0; border-radius: 8px; background: white;
     }
-    .dataframe { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .dataframe th { background: #f1f5f9; padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0; color: #1e293b; }
-    .dataframe td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; color: #475569; white-space: nowrap; }
-    .dataframe tr:hover { background: #f8fafc; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: #f8fafc; color: #1e293b; padding: 12px 10px; text-align: left; border-bottom: 2px solid #cbd5e1; font-weight: 600; }
+    td { padding: 10px; border-bottom: 1px solid #f1f5f9; color: #475569; white-space: nowrap; }
+    tr:hover { background: #f8fafc; }
 
-    /* Fix for image overflow */
-    .nb-image { max-width: 100%; height: auto; display: block; margin: 1.5rem auto; border-radius: 0.5rem; }
+    /* Centered Image Scaling */
+    .nb-image { max-width: 100%; height: auto; display: block; margin: 2rem auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #f1f5f9; }
+    
+    /* Code Editor Style */
+    .nb-code { background: #1e293b; color: #e2e8f0; padding: 1.25rem; border-radius: 8px; font-family: ui-monospace, monospace; font-size: 0.85rem; overflow-x: auto; border: 1px solid #334155; margin: 1rem 0; }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased font-sans">
-
-  <header class="sticky top-0 bg-slate-900/90 backdrop-blur-md z-40 border-b border-slate-800">
-    <div class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded-lg bg-brand flex items-center justify-center text-slate-900 font-black">DS</div>
+<body class="bg-slate-900 text-slate-100 antialiased">
+  <header class="sticky top-0 bg-slate-900/80 backdrop-blur z-40 border-b border-slate-800">
+    <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md bg-brand flex items-center justify-center text-slate-900 font-bold shadow-lg shadow-brand/20">DS</div>
         <div>
-          <h1 class="font-bold text-lg">Data Science with Python</h1>
-          <p class="text-[10px] text-slate-400 uppercase tracking-tighter">Full Notebook Previews</p>
+          <div class="font-semibold text-white">Data Science with Python</div>
+          <div class="text-xs text-slate-400">Interactive Content Viewer</div>
         </div>
       </div>
-      <nav class="hidden sm:flex gap-6 text-sm font-medium text-slate-400">
-        <a href="#course" class="hover:text-white transition">Course</a>
-        <a href="#labs" class="hover:text-white transition">Labs</a>
-        <a href="#practice" class="hover:text-white transition">Practice</a>
+      <nav class="hidden sm:flex gap-6 text-sm text-slate-300">
+        <a href="#course" class="hover:text-brand transition">Curriculum</a>
+        <a href="#labs" class="hover:text-brand transition">Labs</a>
+        <a href="#practice" class="hover:text-brand transition">Practice</a>
       </nav>
     </div>
   </header>
 
-  <main class="mx-auto max-w-6xl px-6 py-10 space-y-12">
+  <main class="mx-auto max-w-5xl px-4 py-12 space-y-20">
     <section id="course">
-      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-        <span class="w-2 h-6 bg-brand rounded-full"></span> Course Modules
+      <h2 class="text-2xl font-bold mb-8 text-white flex items-center gap-3">
+        <span class="w-2 h-8 bg-brand rounded-full"></span> Course Modules
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="course-grid"></div>
     </section>
 
     <section id="labs">
-      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-        <span class="w-2 h-6 bg-brand rounded-full"></span> Lab Reports
+      <h2 class="text-2xl font-bold mb-8 text-white flex items-center gap-3">
+        <span class="w-2 h-8 bg-brand rounded-full"></span> Lab Reports
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="labs-grid"></div>
     </section>
 
     <section id="practice">
-      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-        <span class="w-2 h-6 bg-brand rounded-full"></span> Practice
+      <h2 class="text-2xl font-bold mb-8 text-white flex items-center gap-3">
+        <span class="w-2 h-8 bg-brand rounded-full"></span> Applied Practice
       </h2>
-      <div id="practice-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="practice-grid"></div>
     </section>
   </main>
 
-  <template id="card-template">
-    <article class="bg-slate-800/40 border border-slate-700/50 p-5 rounded-2xl flex flex-col justify-between hover:border-brand/40 transition-all group">
-      <div>
-        <h3 class="font-bold text-white group-hover:text-brand transition title"></h3>
-        <p class="text-sm text-slate-400 mt-2 desc"></p>
-      </div>
-      <button class="open-preview mt-6 w-full py-2 bg-slate-700 hover:bg-brand text-white hover:text-slate-900 rounded-lg text-sm font-bold transition">
-        Preview Notebook
-      </button>
-    </article>
-  </template>
-
   <div id="overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
-    <div class="relative w-full max-w-5xl h-full max-h-[85vh] bg-white rounded-2xl overflow-hidden flex flex-col shadow-2xl">
-      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/50">
-        <div>
-          <h3 id="overlay-title" class="text-slate-900 font-bold"></h3>
-          <p id="overlay-meta" class="text-[10px] text-slate-500 font-mono"></p>
+    <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm" onclick="closeOverlay()"></div>
+    <div class="relative w-full max-w-5xl h-full bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+      <div class="flex items-center justify-between px-6 py-4 border-b bg-slate-50 text-slate-900">
+        <div class="flex items-center gap-4">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+          </div>
+          <span id="overlay-title" class="text-xs font-bold uppercase tracking-widest text-slate-500">Notebook Viewer</span>
         </div>
-        <div class="flex gap-2">
-          <a id="open-github" target="_blank" class="text-xs px-3 py-1.5 bg-slate-900 text-white rounded-md font-medium">View Source</a>
-          <button id="close-overlay" class="px-3 py-1.5 bg-slate-200 text-slate-700 rounded-md text-xs font-bold hover:bg-slate-300">Close</button>
-        </div>
+        <button onclick="closeOverlay()" class="text-slate-400 hover:text-red-500 font-bold transition-colors">ESC / CLOSE</button>
       </div>
-      <div id="overlay-content" class="flex-1 overflow-y-auto p-8 prose prose-slate max-w-none"></div>
+      <div id="overlay-content" class="flex-1 overflow-y-auto p-8 md:p-14 bg-white"></div>
     </div>
   </div>
 
+  <template id="card-template">
+    <article class="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 hover:border-brand transition-all group">
+      <h3 class="font-bold text-lg title group-hover:text-brand transition text-white"></h3>
+      <p class="text-sm text-slate-400 mt-2 desc"></p>
+      <button class="open-preview mt-6 w-full py-3 bg-brand text-slate-900 rounded-xl text-sm font-bold shadow-lg shadow-brand/10 hover:scale-[1.02] active:scale-95 transition-all">Launch Preview</button>
+    </article>
+  </template>
+
   <script>
-    // FULL DATA LIST
+    // COMPLETE DATA SOURCE: 6 Chapters, Labs, and Practice
     const NOTEBOOKS = [
-      { path: 'Course/Chapter-1.ipynb', title: 'Chapter 1', desc: 'Introduction & setup' },
-      { path: 'Course/Chapter-2.ipynb', title: 'Chapter 2', desc: 'Exploratory analysis' },
-      { path: 'Course/Chapter-3.ipynb', title: 'Chapter 3', desc: 'Data wrangling' },
+      { path: 'Course/Chapter-1.ipynb', title: 'Chapter 1', desc: 'Environment & Setup' },
+      { path: 'Course/Chapter-2.ipynb', title: 'Chapter 2', desc: 'Exploratory Analysis' },
+      { path: 'Course/Chapter-3.ipynb', title: 'Chapter 3', desc: 'Data Wrangling' },
       { path: 'Course/Chapter-4.ipynb', title: 'Chapter 4', desc: 'Visualization' },
-      { path: 'Course/Chapter-5.ipynb', title: 'Chapter 5', desc: 'Modeling' },
-      { path: 'Course/Chapter-6.ipynb', title: 'Chapter 6', desc: 'Advanced topics' }
+      { path: 'Course/Chapter-5.ipynb', title: 'Chapter 5', desc: 'Machine Learning' },
+      { path: 'Course/Chapter-6.ipynb', title: 'Chapter 6', desc: 'Advanced Modeling' }
     ];
 
     const LABS = [
-      { path: 'Lab-Report/Lab-3&4/Lab3&4.ipynb', title: 'Lab 3 & 4', desc: 'Auto.csv regression and analysis' },
-      { path: 'Lab-Report/Lab-5/Lab-5.ipynb', title: 'Lab 5', desc: 'EDA and Linear Regression practice' }
+      { path: 'Lab-Report/Lab-3&4/Lab3&4.ipynb', title: 'Lab 3 & 4', desc: 'Regression Analysis' },
+      { path: 'Lab-Report/Lab-5/Lab-5.ipynb', title: 'Lab 5', desc: 'Model Selection' }
     ];
 
     const PRACTICE = [
-      { path: 'Practice/Filter-Signal-Analysis.ipynb', title: 'Signal Analysis', desc: 'Digital signal filtering notebook' }
+      { path: 'Practice/Filter-Signal-Analysis.ipynb', title: 'Signal Analysis', desc: 'Filter/Signal Practice' }
     ];
 
-    function populateGrid(list, containerId) {
-      const grid = document.getElementById(containerId);
-      const template = document.getElementById('card-template');
-      list.forEach(item => {
-        const node = template.content.cloneNode(true);
+    function init() {
+      renderSection(NOTEBOOKS, 'course-grid');
+      renderSection(LABS, 'labs-grid');
+      renderSection(PRACTICE, 'practice-grid');
+    }
+
+    function renderSection(data, gridId) {
+      const grid = document.getElementById(gridId);
+      const temp = document.getElementById('card-template');
+      data.forEach(item => {
+        const node = temp.content.cloneNode(true);
         node.querySelector('.title').textContent = item.title;
         node.querySelector('.desc').textContent = item.desc;
-        node.querySelector('.open-preview').dataset.path = item.path;
+        node.querySelector('.open-preview').onclick = () => loadNotebook(item.path);
         grid.appendChild(node);
       });
     }
 
-    populateGrid(NOTEBOOKS, 'course-grid');
-    populateGrid(LABS, 'labs-grid');
-    populateGrid(PRACTICE, 'practice-grid');
-
-    const overlay = document.getElementById('overlay');
-    const overlayContent = document.getElementById('overlay-content');
-    const overlayTitle = document.getElementById('overlay-title');
-    const overlayMeta = document.getElementById('overlay-meta');
-    const githubLink = document.getElementById('open-github');
-
-    document.addEventListener('click', async (e) => {
-      const btn = e.target.closest('.open-preview');
-      if (!btn) return;
-      
-      const path = btn.dataset.path;
+    async function loadNotebook(path) {
+      const overlay = document.getElementById('overlay');
+      const content = document.getElementById('overlay-content');
       overlay.classList.remove('hidden');
-      overlayTitle.textContent = btn.closest('article').querySelector('.title').textContent;
-      overlayMeta.textContent = path;
-      githubLink.href = path;
-      overlayContent.innerHTML = '<div class="flex justify-center p-20 animate-pulse text-slate-400">Loading notebook data...</div>';
+      document.body.style.overflow = 'hidden';
+      content.innerHTML = '<div class="text-slate-400 py-24 text-center animate-pulse text-lg">Parsing Data Structures...</div>';
 
       try {
         const res = await fetch(path);
         const nb = await res.json();
         renderNotebook(nb);
-      } catch (err) {
-        overlayContent.innerHTML = `<p class="text-red-500">Error loading notebook: ${err.message}</p>`;
+      } catch (e) {
+        content.innerHTML = `<div class="p-6 bg-red-50 text-red-700 rounded-xl border border-red-200">Critical Error: ${e.message}</div>`;
       }
-    });
+    }
 
     function renderNotebook(nb) {
-      overlayContent.innerHTML = '';
-      const container = document.createElement('div');
+      const content = document.getElementById('overlay-content');
+      content.innerHTML = '';
+      const wrapper = document.createElement('div');
+      wrapper.className = 'max-w-4xl mx-auto';
 
-      (nb.cells || []).forEach(cell => {
-        const cellWrap = document.createElement('div');
-        cellWrap.className = 'mb-10';
+      nb.cells.forEach(cell => {
+        const div = document.createElement('div');
+        div.className = 'mb-14';
 
         if (cell.cell_type === 'markdown') {
-          const div = document.createElement('div');
-          div.innerHTML = simpleMarkdown(cell.source.join(''));
-          cellWrap.appendChild(div);
+          const mdDiv = document.createElement('div');
+          mdDiv.className = 'prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-brand-600';
+          mdDiv.innerHTML = parseMarkdownProperly(cell.source.join(''));
+          div.appendChild(mdDiv);
         } else if (cell.cell_type === 'code') {
           const pre = document.createElement('pre');
-          pre.className = 'bg-slate-900 text-slate-200 p-4 rounded-lg text-xs overflow-x-auto border border-slate-800 shadow-lg';
+          pre.className = 'nb-code';
           pre.textContent = cell.source.join('');
-          cellWrap.appendChild(pre);
+          div.appendChild(pre);
 
           if (cell.outputs) {
             cell.outputs.forEach(out => {
               if (out.output_type === 'stream') {
                 const stream = document.createElement('pre');
-                stream.className = 'text-[11px] text-slate-500 mt-2 ml-4 border-l-2 border-slate-200 pl-4';
-                stream.textContent = Array.isArray(out.text) ? out.text.join('') : out.text;
-                cellWrap.appendChild(stream);
+                stream.className = 'mt-3 p-4 bg-slate-50 text-slate-500 text-xs rounded-lg border-l-4 border-slate-200 overflow-x-auto';
+                stream.textContent = out.text.join ? out.text.join('') : out.text;
+                div.appendChild(stream);
               } else if (out.data) {
                 if (out.data['text/html']) {
                   const tableWrap = document.createElement('div');
                   tableWrap.className = 'nb-table-wrapper shadow-sm';
-                  tableWrap.innerHTML = Array.isArray(out.data['text/html']) ? out.data['text/html'].join('') : out.data['text/html'];
-                  cellWrap.appendChild(tableWrap);
+                  tableWrap.innerHTML = out.data['text/html'].join ? out.data['text/html'].join('') : out.data['text/html'];
+                  div.appendChild(tableWrap);
                 }
                 if (out.data['image/png']) {
                   const img = document.createElement('img');
                   img.src = 'data:image/png;base64,' + out.data['image/png'];
-                  img.className = 'nb-image border border-slate-100 shadow-md';
-                  cellWrap.appendChild(img);
+                  img.className = 'nb-image';
+                  div.appendChild(img);
                 }
               }
             });
           }
         }
-        container.appendChild(cellWrap);
+        wrapper.appendChild(div);
       });
-      overlayContent.appendChild(container);
+      content.appendChild(wrapper);
+      content.scrollTop = 0;
     }
 
-    function simpleMarkdown(md) {
+    // RESOLVES HASHTAGS (#), TABLES (|), AND IMAGES (![])
+    function parseMarkdownProperly(text) {
+      // 1. Table Parser
+      const lines = text.split('\n');
+      let inTable = false;
+      const processedLines = lines.map(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('|')) {
+          const cells = trimmed.split('|').filter((c, i, a) => (i > 0 && i < a.length - 1) || c.trim() !== '');
+          if (trimmed.includes('---')) return ''; 
+          let row = '<tr>' + cells.map(c => `<td>${c.trim()}</td>`).join('') + '</tr>';
+          if (!inTable) { inTable = true; return '<div class="nb-table-wrapper"><table>' + row; }
+          return row;
+        } else {
+          if (inTable) { inTable = false; return '</table></div>' + line; }
+          return line;
+        }
+      });
+      let md = processedLines.join('\n');
+      if (inTable) md += '</table></div>';
+
+      // 2. Header and Style Parser (Uses start-of-line anchoring ^ with multiline /m flag)
       return md
-        .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-black mb-4">$1</h1>')
-        .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold border-b pb-2 mb-4 mt-8">$1</h2>')
-        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold mb-2 mt-6">$1</h3>')
+        .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-extrabold mb-6 text-slate-900 border-b pb-2">$1</h1>')
+        .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-10 mb-4 border-b pb-1 text-slate-800">$1</h2>')
+        .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-8 mb-3 text-slate-800">$1</h3>')
+        .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-6 mb-2 text-slate-800">$1</h4>')
+        .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" class="nb-image">')
+        .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" class="text-brand font-medium underline">$1</a>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/`(.*?)`/g, '<code class="bg-slate-100 px-1 rounded text-cyan-700">$1</code>')
-        .split('\n').map(l => l.startsWith('<h') ? l : `<p class="mb-3">${l}</p>`).join('');
+        .replace(/`(.*?)`/g, '<code class="bg-slate-100 text-brand-600 px-1 rounded font-mono text-sm">$1</code>')
+        .split('\n').map(l => {
+          const trim = l.trim();
+          if (!trim) return '';
+          return trim.startsWith('<') ? trim : `<p class="mb-4 leading-relaxed">${trim}</p>`;
+        }).join('');
     }
 
-    document.getElementById('close-overlay').onclick = () => overlay.classList.add('hidden');
+    function closeOverlay() {
+      document.getElementById('overlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    window.onkeydown = (e) => { if (e.key === 'Escape') closeOverlay(); };
+    init();
   </script>
 </body>
 </html>
