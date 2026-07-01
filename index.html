@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Data Science Portfolio — Notebook Previews</title>
+  <title>Data Science & Communication Systems Portfolio</title>
   <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <script>
     tailwind.config = {
@@ -16,241 +16,607 @@
     }
   </script>
   <style>
-    /* Professional Table Rendering: Mimics Excel/Windows Application */
-    .nb-table-wrapper { 
-      width: 100%; overflow-x: auto; margin: 1.5rem 0; 
-      border: 1px solid #e2e8f0; border-radius: 8px; background: white;
-    }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th { background: #f8fafc; color: #1e293b; padding: 12px 10px; text-align: left; border-bottom: 2px solid #cbd5e1; font-weight: 600; }
-    td { padding: 10px; border-bottom: 1px solid #f1f5f9; color: #475569; white-space: nowrap; }
-    tr:hover { background: #f8fafc; }
-
-    /* Centered Image Scaling */
-    .nb-image { max-width: 100%; height: auto; display: block; margin: 2rem auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #f1f5f9; }
+    .glass { background: rgba(2,6,23,0.45); backdrop-filter: blur(12px); }
+    .nb-code { background:#0f172a; color:#e2e8f0; border:1px solid #1e293b; font-family: monospace; }
     
-    /* Code Editor Style */
-    .nb-code { background: #1e293b; color: #e2e8f0; padding: 1.25rem; border-radius: 8px; font-family: ui-monospace, monospace; font-size: 0.85rem; overflow-x: auto; border: 1px solid #334155; margin: 1rem 0; }
+    /* Global Container For All Generated Analytical Data & Tables */
+    .nb-table-wrapper, .dataframe-container, .rendered_html table { 
+      width:100%; 
+      overflow-x:auto; 
+      margin:1.5rem 0; 
+      border:1px solid #334155; 
+      border-radius:12px; 
+      background:#1e293b;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    
+    /* Strict styling overrides to intercept both markdown and pandas dataframes */
+    table, .dataframe { width:100%; border-collapse:collapse; font-size:13px; text-align:left; }
+    th, .dataframe th { background:#0f172a; color:#f1f5f9; padding:12px 14px; border-bottom:2px solid #475569; font-weight:700; }
+    td, .dataframe td { padding:10px 14px; border-bottom:1px solid #334155; color:#cbd5e1; white-space:nowrap; }
+    tr:hover, .dataframe tr:hover { background: rgba(51, 65, 85, 0.4); }
+    
+    /* Universal Graphic, Graph, Bar Chart & Image Containers */
+    .nb-image-container {
+      background: #111827;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin: 1.75rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .nb-image { max-width:100%; height:auto; display:block; border-radius:8px; }
+
+    /* Output Terminal Stream Blocks */
+    .nb-stream-container {
+      margin-top: 0.75rem;
+      padding: 1rem;
+      background-color: #020617;
+      color: #94a3b8;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      width: 100%;
+    }
+    
+    .md-rendered-box {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+    }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0);} }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased">
-  <header class="sticky top-0 bg-slate-900/80 backdrop-blur z-40 border-b border-slate-800">
-    <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
+
+<body class="bg-slate-950 text-slate-100 antialiased min-h-screen flex flex-col">
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-32 left-1/3 h-80 w-80 bg-cyan-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute top-1/3 -left-24 h-96 w-96 bg-emerald-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute bottom-0 right-0 h-96 w-96 bg-sky-500/15 blur-3xl rounded-full"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 bg-slate-950/60 backdrop-blur border-b border-slate-800 w-full">
+    <div class="w-full px-4 md:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-md bg-brand flex items-center justify-center text-slate-900 font-bold shadow-lg shadow-brand/20">DS</div>
+        <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-slate-950 font-black shadow-lg shadow-brand/20">DS</div>
         <div>
-          <div class="font-semibold text-white">Data Science with Python</div>
-          <div class="text-xs text-slate-400">Interactive Content Viewer</div>
+          <div class="font-semibold text-white tracking-tight">Data Science & Systems Hub</div>
+          <div class="text-xs text-slate-400">Git Repo Navigator • Workspace Viewer</div>
         </div>
       </div>
-      <nav class="hidden sm:flex gap-6 text-sm text-slate-300">
-        <a href="#course" class="hover:text-brand transition">Curriculum</a>
-        <a href="#labs" class="hover:text-brand transition">Labs</a>
-        <a href="#practice" class="hover:text-brand transition">Practice</a>
-      </nav>
+
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-4 text-sm text-slate-300">
+          <a href="#tree" class="hover:text-brand transition">Browse Tree</a>
+          <a href="#preview" class="hover:text-brand transition">Instructions</a>
+        </div>
+        <button id="open-hints"
+          class="inline-flex items-center justify-center px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 text-sm">
+          Tips
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="mx-auto max-w-5xl px-4 py-12 space-y-20">
-    <section id="course">
-      <h2 class="text-2xl font-bold mb-8 text-white flex items-center gap-3">
-        <span class="w-2 h-8 bg-brand rounded-full"></span> Course Modules
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="course-grid"></div>
+  <main class="w-full px-4 md:px-8 py-6 flex-1 space-y-6">
+    
+    <section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 w-full">
+      <div class="absolute inset-0 bg-gradient-to-r from-brand/20 via-transparent to-emerald-500/10"></div>
+      <div class="relative p-6 md:p-8 flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between w-full">
+        <div class="flex-1">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-slate-200">
+            <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
+            Dynamic Viewport Sync Active
+          </div>
+          <h1 class="mt-3 text-2xl md:text-4xl font-extrabold leading-tight">
+            Explore chapters, labs, and workspace modules
+          </h1>
+          <p class="mt-2 text-slate-300 text-sm md:text-base leading-relaxed">
+            Click any project file to render its content matrix, notebook scripts, or document paths in real-time.
+          </p>
+        </div>
+
+        <div class="w-full lg:w-auto flex flex-col sm:flex-row lg:flex-col gap-4 justify-end min-w-[320px]">
+          <div class="flex items-center gap-2 bg-slate-900/40 border border-white/10 rounded-2xl px-3 py-2.5 flex-1">
+            <svg class="h-5 w-5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <input id="search" class="bg-transparent outline-none w-full text-sm text-slate-100 placeholder:text-slate-500"
+              placeholder="Search workspace files..." />
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-center sm:w-64 lg:w-full shrink-0">
+            <div class="rounded-2xl bg-white/5 border border-white/10 py-1.5">
+              <div id="stat-total" class="text-base md:text-lg font-extrabold text-white">0</div>
+              <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">Total Files</div>
+            </div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 py-1.5">
+              <div id="stat-nb" class="text-base md:text-lg font-extrabold text-white">0</div>
+              <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">Notebooks (IPYNB)</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="labs">
-      <h2 class="text-2xl font-bold mb-8 text-white flex items-center gap-3">
-        <span class="w-2 h-8 bg-brand rounded-full"></span> Lab Reports
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="labs-grid"></div>
+    <section id="tree" class="space-y-4 w-full">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 class="text-xl md:text-2xl font-bold tracking-tight">Git Tree Workspace Navigator</h2>
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 max-w-full scrollbar-none">
+          <button id="filter-all" class="px-3 py-1.5 rounded-xl bg-brand text-slate-950 font-bold text-xs md:text-sm shadow-lg shadow-brand/20 whitespace-nowrap">
+            All Workspace Files
+          </button>
+          <button id="filter-course" class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-xs md:text-sm text-slate-200 whitespace-nowrap">
+            Course Notebooks
+          </button>
+          <button id="filter-lab" class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-xs md:text-sm text-slate-200 whitespace-nowrap">
+            Lab Reports & Docs
+          </button>
+          <button id="filter-practice" class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-xs md:text-sm text-slate-200 whitespace-nowrap">
+            Practice Sandbox
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 w-full items-start">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-4 md:p-6 xl:col-span-5 w-full">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-2 h-8 rounded-full bg-brand"></div>
+            <h3 class="font-bold text-lg text-white">Directory Structure Mapping</h3>
+          </div>
+          <div class="relative">
+            <div id="tree-anim" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-2 max-h-[60vh] xl:max-h-[70vh] overflow-y-auto pr-1">
+              </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-4 md:p-6 xl:col-span-7 w-full">
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <h3 class="font-bold text-lg text-white">Active File Gates</h3>
+            <div class="text-xs md:text-sm text-slate-400 font-mono" id="result-count">0 nodes located</div>
+          </div>
+
+          <div id="cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+            </div>
+
+          <div id="empty" class="hidden mt-6 text-slate-400 text-sm bg-slate-900/50 p-6 rounded-xl text-center border border-white/5">
+            No matching items discoverable within selected index filters.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="practice">
-      <h2 class="text-2xl font-bold mb-8 text-white flex items-center gap-3">
-        <span class="w-2 h-8 bg-brand rounded-full"></span> Applied Practice
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="practice-grid"></div>
+    <section id="preview" class="rounded-3xl border border-white/10 bg-white/5 p-5 w-full">
+      <div class="flex items-start gap-4">
+        <div class="w-10 h-10 rounded-xl bg-brand/20 border border-brand/30 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="text-sm">
+          <h3 class="font-bold text-slate-200">Security & Information Isolation Policy</h3>
+          <p class="text-slate-400 mt-0.5 leading-relaxed">
+            Unnecessary configuration metrics, environment requirements, and core indexes have been completely scrubbed from the rendering arrays to isolate public exposure vectors cleanly.
+          </p>
+        </div>
+      </div>
     </section>
   </main>
 
-  <div id="overlay" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm" onclick="closeOverlay()"></div>
-    <div class="relative w-full max-w-5xl h-full bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col">
-      <div class="flex items-center justify-between px-6 py-4 border-b bg-slate-50 text-slate-900">
-        <div class="flex items-center gap-4">
-          <div class="flex gap-1.5">
-            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-            <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-            <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+  <div id="overlay" class="fixed inset-0 z-50 hidden p-2 sm:p-4 md:p-6 flex items-center justify-center">
+    <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onclick="closeOverlay()"></div>
+    <div class="relative w-full h-full bg-slate-900 rounded-2xl md:rounded-3xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col animate-[fadeUp_0.2s_ease-out]">
+      
+      <div class="px-4 md:px-6 py-3 md:py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse shrink-0"></div>
+          <div class="min-w-0">
+            <div id="overlay-title" class="text-[10px] md:text-xs uppercase tracking-widest text-brand font-black truncate">Viewer Node Workspace</div>
+            <div id="overlay-subtitle" class="text-xs md:text-sm text-slate-300 font-mono truncate">Loading resource sequence path...</div>
           </div>
-          <span id="overlay-title" class="text-xs font-bold uppercase tracking-widest text-slate-500">Notebook Viewer</span>
         </div>
-        <button onclick="closeOverlay()" class="text-slate-400 hover:text-red-500 font-bold transition-colors">ESC / CLOSE</button>
+        <button onclick="closeOverlay()" class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs md:text-sm font-bold transition-all">
+          Close (ESC)
+        </button>
       </div>
-      <div id="overlay-content" class="flex-1 overflow-y-auto p-8 md:p-14 bg-white"></div>
+
+      <div id="overlay-content" class="flex-1 overflow-y-auto p-4 md:p-8 bg-slate-900 w-full">
+        <div id="notebook-render-zone" class="w-full h-full"></div>
+      </div>
     </div>
   </div>
 
   <template id="card-template">
-    <article class="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 hover:border-brand transition-all group">
-      <h3 class="font-bold text-lg title group-hover:text-brand transition text-white"></h3>
-      <p class="text-sm text-slate-400 mt-2 desc"></p>
-      <button class="open-preview mt-6 w-full py-3 bg-brand text-slate-900 rounded-xl text-sm font-bold shadow-lg shadow-brand/10 hover:scale-[1.02] active:scale-95 transition-all">Launch Preview</button>
+    <article class="group bg-slate-900/20 border border-white/10 rounded-2xl p-4 flex flex-col justify-between hover:border-brand/50 hover:bg-slate-900/40 transition-all shadow-md">
+      <div class="space-y-1.5">
+        <div class="flex items-start justify-between gap-2">
+          <h3 class="font-extrabold text-white text-sm md:text-base tracking-tight truncate title flex-1"></h3>
+          <span class="type-pill inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-black border tracking-wider shrink-0">
+            TYPE
+          </span>
+        </div>
+        <p class="text-slate-400 text-xs line-clamp-2 desc"></p>
+      </div>
+
+      <div class="mt-4 grid grid-cols-2 gap-2 w-full">
+        <button class="open-preview px-2.5 py-2 rounded-xl bg-brand text-slate-950 font-black text-xs md:text-sm hover:opacity-90 transition-all">
+          Open
+        </button>
+        <a class="direct-link px-2.5 py-2 rounded-xl bg-white/10 border border-white/15 hover:bg-white/15 text-slate-200 font-bold text-center text-xs md:text-sm transition-all"
+           href="#" target="_blank" rel="noopener">
+          Direct Path
+        </a>
+      </div>
     </article>
   </template>
 
+  <template id="tree-item-template">
+    <div class="flex items-center gap-2.5 w-full">
+      <div class="relative flex items-center justify-center w-6 h-6 shrink-0">
+        <span class="absolute inset-0 rounded-full bg-brand/20 blur-xs"></span>
+        <span class="relative w-2 h-2 rounded-full bg-brand"></span>
+      </div>
+      <button class="tree-open flex-1 text-left rounded-xl px-3 py-2 border border-white/10 hover:border-brand/40 hover:bg-white/10 transition-all text-xs text-slate-200 min-w-0"
+              data-path="">
+        <div class="font-bold title truncate text-white"></div>
+        <div class="text-[10px] text-slate-400 font-mono mt-0.5 truncate desc"></div>
+      </button>
+    </div>
+  </template>
+
+  <div id="hints" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-slate-950/80" onclick="toggleHints(false)"></div>
+    <div class="relative w-full max-w-md bg-white rounded-3xl border border-white/20 shadow-2xl p-6">
+      <div class="font-black text-slate-900 text-lg tracking-tight">Quick Terminal Tips</div>
+      <ul class="mt-3 text-slate-700 text-sm space-y-2.5 font-medium">
+        <li class="flex items-start gap-1.5"><span>•</span> <span><strong>Search Box:</strong> Instantly evaluates folder branches and text annotations.</span></li>
+        <li class="flex items-start gap-1.5"><span>•</span> <span><strong>Viewer Window:</strong> Dynamically loads JSON notebook trees into readable layout panels.</span></li>
+      </ul>
+      <button onclick="toggleHints(false)" class="mt-6 w-full px-4 py-2.5 rounded-xl bg-brand text-slate-950 font-black text-sm shadow-md hover:opacity-90">
+        Acknowledge System
+      </button>
+    </div>
+  </div>
+
   <script>
-    // COMPLETE DATA SOURCE: 6 Chapters, Labs, and Practice
-    const NOTEBOOKS = [
-      { path: 'Course/Chapter-1.ipynb', title: 'Chapter 1', desc: 'Introduction' },
-      { path: 'Course/Chapter-2.ipynb', title: 'Chapter 2', desc: 'Control Structure and Functions' },
-      { path: 'Course/Chapter-3.ipynb', title: 'Chapter 3', desc: 'Data Structures and collections' },
-      { path: 'Course/Chapter-4.ipynb', title: 'Chapter 4', desc: 'NumPy for Numerical Calculation' },
-      { path: 'Course/Chapter-5.ipynb', title: 'Chapter 5', desc: 'Data Manipulation with Pandas' },
-      { path: 'Course/Chapter-6.ipynb', title: 'Chapter 6', desc: 'Data Visualization with Matplotlib and seaborn' }
+    const ITEMS = [
+      // --- Course Group ---
+      { type:'ipynb', path:'Course/Chapter-1.ipynb', title:'Chapter 1', desc:'Introduction to Python Environment', group:'course' },
+      { type:'ipynb', path:'Course/Chapter-2.ipynb', title:'Chapter 2', desc:'Control Structures & Lambda Functions', group:'course' },
+      { type:'ipynb', path:'Course/Chapter-3.ipynb', title:'Chapter 3', desc:'Data Structures & Object Collections', group:'course' },
+      { type:'ipynb', path:'Course/Chapter-4.ipynb', title:'Chapter 4', desc:'NumPy Dimensional Numerical Arrays', group:'course' },
+      { type:'ipynb', path:'Course/Chapter-5.ipynb', title:'Chapter 5', desc:'Data Manipulation Engines via Pandas', group:'course' },
+      { type:'ipynb', path:'Course/Chapter-6.ipynb', title:'Chapter 6', desc:'Data Visualization with Matplotlib & Seaborn', group:'course' },
+
+      // --- Lab-Report Group ---
+      { type:'ipynb', path:'Lab-Report/Lab-3&4/Lab3&4.ipynb', title:'Lab 3 & 4 Report', desc:'Regression & Verification Estimations', group:'lab' },
+      { type:'ipynb', path:'Lab-Report/Lab-5/Lab-5.ipynb', title:'Lab 5 Report', desc:'Hypothesis Trees & Model Selections', group:'lab' },
+
+      // --- Practice Group ---
+      { type:'ipynb', path:'Practice/Communication-lab.ipynb', title:'Communication Lab', desc:'Signal wave computations and analysis', group:'practice' },
+      { type:'pdf', path:'Practice/Communication_Systems_Labs/Lab_1.pdf', title:'Communication Lab 1', desc:'Signal Analysis Documentation (PDF)', group:'lab' },
+      { type:'pdf', path:'Practice/Communication_Systems_Labs/Lab_2.pdf', title:'Communication Lab 2', desc:'Modulation Verification Documentation (PDF)', group:'lab' },
+      { type:'pdf', path:'Practice/Communication_Systems_Labs/Lab_3.pdf', title:'Communication Lab 3', desc:'Demodulation Analysis Records (PDF)', group:'lab' },
+      { type:'pdf', path:'Practice/Communication_Systems_Labs/Lab_4.pdf', title:'Communication Lab 4', desc:'System Performance Benchmarks (PDF)', group:'lab' },
+      { type:'ipynb', path:'Practice/Filter-Signal-Analysis.ipynb', title:'Filter Signal Analysis', desc:'Signal filtering algorithms and transforms', group:'practice' },
+      { type:'ipynb', path:'Practice/Generative-Questions-1.ipynb', title:'Generative Questions 1', desc:'Analytical engineering test matrix', group:'practice' },
+      { type:'ipynb', path:'Practice/Telecommunication.ipynb', title:'Telecommunication Notebook', desc:'Wave propagation & RF arrays tracking', group:'practice' }
     ];
 
-    const LABS = [
-      { path: 'Lab-Report/Lab-3&4/Lab3&4.ipynb', title: 'Lab 3 & 4', desc: 'Regression Analysis' },
-      { path: 'Lab-Report/Lab-5/Lab-5.ipynb', title: 'Lab 5', desc: 'Model Selection' }
-    ];
+    const elTree = document.getElementById('tree-anim');
+    const elCards = document.getElementById('cards');
+    const elEmpty = document.getElementById('empty');
+    const elResultCount = document.getElementById('result-count');
 
-    const PRACTICE = [
-      { path: 'Practice/Filter-Signal-Analysis.ipynb', title: 'Signal Analysis', desc: 'Filter/Signal Practice' },
-      { path: 'Python_File/Communication-Lab.ipynb', title: 'Communication Lab', desc: 'Communication Practice' },
-    ];
+    const tplCard = document.getElementById('card-template');
+    const tplTree = document.getElementById('tree-item-template');
 
-    function init() {
-      renderSection(NOTEBOOKS, 'course-grid');
-      renderSection(LABS, 'labs-grid');
-      renderSection(PRACTICE, 'practice-grid');
+    const $search = document.getElementById('search');
+    const $statTotal = document.getElementById('stat-total');
+    const $statNb = document.getElementById('stat-nb');
+
+    let activeFilter = 'all';
+
+    function normalize(s){ return (s||'').toLowerCase().trim(); }
+    
+    function getTypePill(type){
+      if (type === 'ipynb') return { text:'IPYNB', cls:'border-cyan-400/40 text-cyan-200 bg-cyan-500/10' };
+      if (type === 'pdf') return { text:'PDF', cls:'border-red-400/40 text-red-200 bg-red-500/10' };
+      return { text:type.toUpperCase(), cls:'border-slate-300/30 text-slate-200 bg-white/5' };
     }
 
-    function renderSection(data, gridId) {
-      const grid = document.getElementById(gridId);
-      const temp = document.getElementById('card-template');
-      data.forEach(item => {
-        const node = temp.content.cloneNode(true);
+    function renderStats(){
+      $statTotal.textContent = ITEMS.length;
+      $statNb.textContent = ITEMS.filter(x => x.type === 'ipynb').length;
+    }
+
+    function buildTreeAndCards(){
+      const q = normalize($search.value);
+      const filtered = ITEMS.filter(item => {
+        const byGroup =
+          activeFilter === 'all' ? true :
+          activeFilter === 'course' ? item.group === 'course' :
+          activeFilter === 'lab' ? item.group === 'lab' :
+          activeFilter === 'practice' ? item.group === 'practice' :
+          false;
+
+        const byQuery = q ? (normalize(item.title).includes(q) || normalize(item.desc).includes(q) || normalize(item.path).includes(q)) : true;
+        return byGroup && byQuery;
+      });
+
+      elTree.innerHTML = '';
+      elCards.innerHTML = '';
+      elEmpty.classList.toggle('hidden', filtered.length !== 0);
+      elResultCount.textContent = `${filtered.length} nodes located`;
+
+      filtered.forEach(item => {
+        const node = tplTree.content.cloneNode(true);
+        const btn = node.querySelector('.tree-open');
+        btn.dataset.path = item.path;
         node.querySelector('.title').textContent = item.title;
-        node.querySelector('.desc').textContent = item.desc;
-        node.querySelector('.open-preview').onclick = () => loadNotebook(item.path);
-        grid.appendChild(node);
+        node.querySelector('.desc').textContent = item.path;
+        btn.addEventListener('click', () => openItem(item));
+        elTree.appendChild(node);
+      });
+
+      filtered.forEach(item => {
+        const node = tplCard.content.cloneNode(true);
+        node.querySelector('.title').textContent = item.title;
+        node.querySelector('.desc').textContent = item.desc || '';
+        const pill = node.querySelector('.type-pill');
+        const p = getTypePill(item.type);
+        pill.textContent = p.text;
+        pill.className = 'type-pill inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-black border ' + p.cls;
+
+        node.querySelector('.open-preview').onclick = () => openItem(item);
+        node.querySelector('.direct-link').href = './' + buildSafePath(item.path);
+
+        elCards.appendChild(node);
       });
     }
 
-    async function loadNotebook(path) {
+    function buildSafePath(rawPath) {
+      return rawPath.split('/').map(segment => encodeURIComponent(segment)).join('/');
+    }
+
+    async function openItem(item){
       const overlay = document.getElementById('overlay');
-      const content = document.getElementById('overlay-content');
+      const title = document.getElementById('overlay-title');
+      const subtitle = document.getElementById('overlay-subtitle');
+      const targetZone = document.getElementById('notebook-render-zone');
+
       overlay.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
-      content.innerHTML = '<div class="text-slate-400 py-24 text-center animate-pulse text-lg">Parsing Data Structures...</div>';
+
+      title.textContent = item.title;
+      subtitle.textContent = item.path;
+
+      const safePathString = buildSafePath(item.path);
+
+      if (item.type === 'pdf') {
+        targetZone.innerHTML = `
+          <div class="w-full h-full min-h-[75vh] flex flex-col justify-between">
+            <object data="./${safePathString}" type="application/pdf" class="w-full h-[70vh] rounded-xl border border-slate-800 bg-slate-950">
+              <div class="p-6 bg-slate-950 border border-slate-800 rounded-xl text-center text-sm text-slate-300">
+                <p class="mb-4">Direct embedded PDF mapping could be blocked by your local browser instance policies.</p>
+                <a href="./${safePathString}" target="_blank" class="px-4 py-2 bg-brand text-slate-950 font-bold rounded-lg hover:opacity-90 transition-all inline-block">
+                  Launch via Dedicated Frame Window
+                </a>
+              </div>
+            </object>
+          </div>
+        `;
+        return;
+      }
+
+      targetZone.innerHTML = `
+        <div class="animate-pulse rounded-2xl border border-slate-800 bg-slate-950 p-6 text-slate-400 font-mono text-xs">
+          Fetching notebook structural sequence map: [${item.type.toUpperCase()}]...
+        </div>
+      `;
 
       try {
-        const res = await fetch(path);
+        const res = await fetch('./' + safePathString, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP target node status failure code: ${res.status}`);
+        
         const nb = await res.json();
-        renderNotebook(nb);
+        renderNotebook(nb, targetZone);
       } catch (e) {
-        content.innerHTML = `<div class="p-6 bg-red-50 text-red-700 rounded-xl border border-red-200">Critical Error: ${e.message}</div>`;
+        targetZone.innerHTML = `
+          <div class="w-full bg-red-950/40 border border-red-900 text-red-200 p-4 rounded-2xl font-mono text-xs">
+            [Workspace Error]: ${escapeHtml(e.message)}. Please verify directory target configurations match.
+          </div>
+        `;
       }
     }
 
-    function renderNotebook(nb) {
-      const content = document.getElementById('overlay-content');
-      content.innerHTML = '';
-      const wrapper = document.createElement('div');
-      wrapper.className = 'max-w-4xl mx-auto';
-
-      nb.cells.forEach(cell => {
-        const div = document.createElement('div');
-        div.className = 'mb-14';
-
-        if (cell.cell_type === 'markdown') {
-          const mdDiv = document.createElement('div');
-          mdDiv.className = 'prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-brand-600';
-          mdDiv.innerHTML = parseMarkdownProperly(cell.source.join(''));
-          div.appendChild(mdDiv);
-        } else if (cell.cell_type === 'code') {
-          const pre = document.createElement('pre');
-          pre.className = 'nb-code';
-          pre.textContent = cell.source.join('');
-          div.appendChild(pre);
-
-          if (cell.outputs) {
-            cell.outputs.forEach(out => {
-              if (out.output_type === 'stream') {
-                const stream = document.createElement('pre');
-                stream.className = 'mt-3 p-4 bg-slate-50 text-slate-500 text-xs rounded-lg border-l-4 border-slate-200 overflow-x-auto';
-                stream.textContent = out.text.join ? out.text.join('') : out.text;
-                div.appendChild(stream);
-              } else if (out.data) {
-                if (out.data['text/html']) {
-                  const tableWrap = document.createElement('div');
-                  tableWrap.className = 'nb-table-wrapper shadow-sm';
-                  tableWrap.innerHTML = out.data['text/html'].join ? out.data['text/html'].join('') : out.data['text/html'];
-                  div.appendChild(tableWrap);
-                }
-                if (out.data['image/png']) {
-                  const img = document.createElement('img');
-                  img.src = 'data:image/png;base64,' + out.data['image/png'];
-                  img.className = 'nb-image';
-                  div.appendChild(img);
-                }
-              }
-            });
-          }
-        }
-        wrapper.appendChild(div);
-      });
-      content.appendChild(wrapper);
-      content.scrollTop = 0;
-    }
-
-    // RESOLVES HASHTAGS (#), TABLES (|), AND IMAGES (![])
-    function parseMarkdownProperly(text) {
-      // 1. Table Parser
-      const lines = text.split('\n');
-      let inTable = false;
-      const processedLines = lines.map(line => {
-        const trimmed = line.trim();
-        if (trimmed.startsWith('|')) {
-          const cells = trimmed.split('|').filter((c, i, a) => (i > 0 && i < a.length - 1) || c.trim() !== '');
-          if (trimmed.includes('---')) return ''; 
-          let row = '<tr>' + cells.map(c => `<td>${c.trim()}</td>`).join('') + '</tr>';
-          if (!inTable) { inTable = true; return '<div class="nb-table-wrapper"><table>' + row; }
-          return row;
-        } else {
-          if (inTable) { inTable = false; return '</table></div>' + line; }
-          return line;
-        }
-      });
-      let md = processedLines.join('\n');
-      if (inTable) md += '</table></div>';
-
-      // 2. Header and Style Parser (Uses start-of-line anchoring ^ with multiline /m flag)
-      return md
-        .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-extrabold mb-6 text-slate-900 border-b pb-2">$1</h1>')
-        .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-10 mb-4 border-b pb-1 text-slate-800">$1</h2>')
-        .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-8 mb-3 text-slate-800">$1</h3>')
-        .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-6 mb-2 text-slate-800">$1</h4>')
-        .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" class="nb-image">')
-        .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" class="text-brand font-medium underline">$1</a>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/`(.*?)`/g, '<code class="bg-slate-100 text-brand-600 px-1 rounded font-mono text-sm">$1</code>')
-        .split('\n').map(l => {
-          const trim = l.trim();
-          if (!trim) return '';
-          return trim.startsWith('<') ? trim : `<p class="mb-4 leading-relaxed">${trim}</p>`;
-        }).join('');
-    }
-
-    function closeOverlay() {
+    function closeOverlay(){
       document.getElementById('overlay').classList.add('hidden');
       document.body.style.overflow = 'auto';
     }
-
     window.onkeydown = (e) => { if (e.key === 'Escape') closeOverlay(); };
-    init();
+
+    function escapeHtml(str){
+      if(!str) return '';
+      return String(str)
+        .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+        .replaceAll('"','&quot;').replaceAll("'","&#039;");
+    }
+
+    function parseMarkdownProperly(text){
+      if(!text) return '';
+      
+      const lines = text.split('\n');
+      let inTable = false;
+      let processedLines = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        const trimmed = line.trim();
+        
+        // Check for table elements
+        const isTableRow = trimmed.startsWith('|') && trimmed.endsWith('|');
+        const isDivider = trimmed.match(/^\|\s*:?-{3,}:?\s*\|/);
+
+        if (isTableRow) {
+          if (!inTable) {
+            inTable = true;
+            processedLines.push('<div class="nb-table-wrapper"><table><tbody>');
+          }
+          if (!isDivider) {
+            const cells = trimmed.split('|').filter((c, idx, a) => idx > 0 && idx < a.length - 1).map(c => c.trim());
+            // Sanitize raw text inside cells, then process inline styles
+            const renderedCells = cells.map(c => `<td>${applyInlineMarkdown(escapeHtml(c))}</td>`).join('');
+            processedLines.push(`<tr>${renderedCells}</tr>`);
+          }
+          continue;
+        }
+        
+        if (inTable) {
+          inTable = false;
+          processedLines.push('</tbody></table></div>');
+        }
+
+        // Check for list elements (* or -)
+        const listMatch = line.match(/^(\s*)([-*])\s+(.*)$/);
+        if (listMatch) {
+          const indent = listMatch[1];
+          const content = listMatch[3];
+          // Keep structure intact while processing text safely
+          processedLines.push(`${indent}• ${applyInlineMarkdown(escapeHtml(content))}`);
+          continue;
+        }
+
+        // Regular line treatment
+        processedLines.push(escapeHtml(line));
+      }
+      
+      if (inTable) {
+        processedLines.push('</tbody></table></div>');
+      }
+
+      // Re-map elements block by block
+      return processedLines.map(l => {
+        const t = l.trim();
+        if (!t) return '';
+        if (t.startsWith('<div') || t.startsWith('<tr') || t.startsWith('</div') || t.startsWith('</tbody')) return l;
+        
+        // Headers parsing
+        if (t.startsWith('#### ')) return `<h4 class="text-sm font-bold mt-4 mb-1 text-white">${applyInlineMarkdown(t.substring(5))}</h4>`;
+        if (t.startsWith('### ')) return `<h3 class="text-base font-extrabold mt-4 mb-1.5 text-slate-100">${applyInlineMarkdown(t.substring(4))}</h3>`;
+        if (t.startsWith('## ')) return `<h2 class="text-lg font-black mt-5 mb-2 border-b border-slate-700 pb-0.5 text-slate-50">${applyInlineMarkdown(t.substring(3))}</h2>`;
+        if (t.startsWith('# ')) return `<h1 class="text-xl font-black mb-3 border-b border-slate-700 pb-1 text-white">${applyInlineMarkdown(t.substring(2))}</h1>`;
+        
+        // List line items layout block wrap
+        if (t.startsWith('• ')) {
+          return `<div class="flex items-start gap-2 ml-4 mb-1 text-xs md:text-sm text-slate-300">
+                    <span class="text-brand shrink-0">•</span>
+                    <span class="leading-relaxed">${t.substring(2)}</span>
+                  </div>`;
+        }
+
+        return `<p class="mb-2 leading-relaxed text-slate-300 text-xs md:text-sm">${applyInlineMarkdown(l)}</p>`;
+      }).join('\n');
+    }
+
+    // Handles core token substitutions cleanly without causing html translation leaks
+    function applyInlineMarkdown(sanitizedStr) {
+      return sanitizedStr
+        .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-white">$1</strong>')
+        .replace(/`([^`]+)`/g, '<code class="bg-slate-950 text-cyan-400 px-1 py-0.5 rounded font-mono text-[11px] border border-slate-800">$1</code>')
+        .replace(/!\[(.*?)\]\((.*?)\)/g, '<div class="nb-image-container"><img src="$2" alt="$1" class="nb-image"></div>')
+        .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" class="text-cyan-400 font-bold underline text-xs">$1</a>');
+    }
+
+    function renderNotebook(nb, contentEl){
+      contentEl.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'w-full';
+
+      (nb.cells || []).forEach((cell, idx) => {
+        const block = document.createElement('div');
+        block.className = 'mb-5 w-full';
+
+        if (cell.cell_type === 'markdown'){
+          const div = document.createElement('div');
+          div.className = 'md-rendered-box';
+          div.innerHTML = parseMarkdownProperly((cell.source || []).join(''));
+          block.appendChild(div);
+        }
+
+        if (cell.cell_type === 'code'){
+          const pre = document.createElement('pre');
+          pre.className = 'nb-code rounded-2xl p-4 overflow-x-auto whitespace-pre-wrap text-xs font-mono leading-5 w-full';
+          pre.textContent = (cell.source || []).join('');
+          block.appendChild(pre);
+
+          (cell.outputs || []).forEach(out => {
+            if (out.output_type === 'stream' && out.text){
+              const outDiv = document.createElement('div');
+              outDiv.className = 'nb-stream-container';
+              outDiv.textContent = Array.isArray(out.text) ? out.text.join('') : String(out.text);
+              block.appendChild(outDiv);
+            }
+            if (out.data){
+              if (out.data['text/html']){
+                const htmlDiv = document.createElement('div');
+                htmlDiv.className = 'dataframe-container';
+                htmlDiv.innerHTML = Array.isArray(out.data['text/html']) ? out.data['text/html'].join('') : String(out.data['text/html']);
+                block.appendChild(htmlDiv);
+              }
+              if (out.data['image/png']){
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'nb-image-container';
+                const img = document.createElement('img');
+                img.className = 'nb-image';
+                const b64 = Array.isArray(out.data['image/png']) ? out.data['image/png'].join('') : out.data['image/png'];
+                img.src = 'data:image/png;base64,' + b64.replace(/\s/g, '');
+                imgContainer.appendChild(img);
+                block.appendChild(imgContainer);
+              }
+            }
+          });
+        }
+
+        block.style.animation = `fadeUp .25s ease both`;
+        block.style.animationDelay = `${Math.min(idx * 10, 200)}ms`;
+        wrap.appendChild(block);
+      });
+
+      contentEl.appendChild(wrap);
+      document.getElementById('overlay-content').scrollTop = 0;
+    }
+
+    function setActiveButton(which){
+      ['filter-all','filter-course','filter-lab','filter-practice'].forEach(id => {
+        document.getElementById(id).className = (id === which)
+          ? 'px-3 py-1.5 rounded-xl bg-brand text-slate-950 font-bold text-xs md:text-sm shadow-lg shadow-brand/20 whitespace-nowrap'
+          : 'px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-xs md:text-sm text-slate-200 whitespace-nowrap';
+      });
+    }
+
+    document.getElementById('filter-all').addEventListener('click', () => { activeFilter='all'; setActiveButton('filter-all'); buildTreeAndCards(); });
+    document.getElementById('filter-course').addEventListener('click', () => { activeFilter='course'; setActiveButton('filter-course'); buildTreeAndCards(); });
+    document.getElementById('filter-lab').addEventListener('click', () => { activeFilter='lab'; setActiveButton('filter-lab'); buildTreeAndCards(); });
+    document.getElementById('filter-practice').addEventListener('click', () => { activeFilter='practice'; setActiveButton('filter-practice'); buildTreeAndCards(); });
+
+    $search.addEventListener('input', () => buildTreeAndCards());
+    function toggleHints(show){ document.getElementById('hints').classList.toggle('hidden', !show); }
+    document.getElementById('open-hints').addEventListener('click', () => toggleHints(true));
+
+    renderStats();
+    buildTreeAndCards();
   </script>
 </body>
 </html>
