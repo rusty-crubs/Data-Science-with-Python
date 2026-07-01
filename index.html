@@ -92,7 +92,6 @@
         <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-slate-950 font-black shadow-lg shadow-brand/20">DS</div>
         <div>
           <div class="font-semibold text-white tracking-tight">Data Science & Systems Hub</div>
-          <div class="text-xs text-slate-400">Git Repo Navigator • Workspace Viewer</div>
         </div>
       </div>
 
@@ -113,22 +112,23 @@
     
     <section class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 w-full">
       <div class="absolute inset-0 bg-gradient-to-r from-brand/20 via-transparent to-emerald-500/10"></div>
-      <div class="relative p-6 md:p-8 flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between w-full">
-        <div class="flex-1">
+      <div class="relative p-6 md:p-8 flex flex-col lg:flex-row gap-6 items-center lg:justify-between w-full text-center lg:text-left">
+        
+        <div class="flex-1 flex flex-col items-center lg:items-start">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-slate-200">
             <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
             Dynamic Viewport Sync Active
           </div>
-          <h1 class="mt-3 text-2xl md:text-4xl font-extrabold leading-tight">
+          <h1 class="mt-3 text-2xl md:text-4xl font-extrabold leading-tight tracking-tight text-white max-w-xl lg:max-w-none">
             Explore chapters, labs, and workspace modules
           </h1>
-          <p class="mt-2 text-slate-300 text-sm md:text-base leading-relaxed">
+          <p class="mt-2 text-slate-300 text-sm md:text-base leading-relaxed max-w-lg lg:max-w-none">
             Click any project file to render its content matrix, notebook scripts, or document paths in real-time.
           </p>
         </div>
 
-        <div class="w-full lg:w-auto flex flex-col sm:flex-row lg:flex-col gap-4 justify-end min-w-[320px]">
-          <div class="flex items-center gap-2 bg-slate-900/40 border border-white/10 rounded-2xl px-3 py-2.5 flex-1">
+        <div class="w-full lg:w-auto flex flex-col gap-4 items-center justify-end min-w-0 sm:min-w-[340px] max-w-md lg:max-w-none">
+          <div class="flex items-center gap-2 bg-slate-900/40 border border-white/10 rounded-2xl px-4 py-3 w-full">
             <svg class="h-5 w-5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
             </svg>
@@ -136,23 +136,23 @@
               placeholder="Search workspace files..." />
           </div>
 
-          <div class="grid grid-cols-2 gap-2 text-center sm:w-64 lg:w-full shrink-0">
-            <div class="rounded-2xl bg-white/5 border border-white/10 py-1.5">
-              <div id="stat-total" class="text-base md:text-lg font-extrabold text-white">0</div>
-              <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">Total Files</div>
+          <div class="grid grid-cols-2 gap-3 w-full">
+            <div class="rounded-2xl bg-white/5 border border-white/10 py-3 px-4 flex flex-col items-center justify-center text-center">
+              <div id="stat-total" class="text-xl md:text-2xl font-extrabold text-white leading-none">0</div>
+              <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1">Total Files</div>
             </div>
-            <div class="rounded-2xl bg-white/5 border border-white/10 py-1.5">
-              <div id="stat-nb" class="text-base md:text-lg font-extrabold text-white">0</div>
-              <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">Notebooks (IPYNB)</div>
+            <div class="rounded-2xl bg-white/5 border border-white/10 py-3 px-4 flex flex-col items-center justify-center text-center">
+              <div id="stat-nb" class="text-xl md:text-2xl font-extrabold text-white leading-none">0</div>
+              <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1">Notebooks (IPYNB)</div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
     <section id="tree" class="space-y-4 w-full">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <h2 class="text-xl md:text-2xl font-bold tracking-tight">Git Tree Workspace Navigator</h2>
         <div class="flex items-center gap-2 overflow-x-auto pb-1 max-w-full scrollbar-none">
           <button id="filter-all" class="px-3 py-1.5 rounded-xl bg-brand text-slate-950 font-bold text-xs md:text-sm shadow-lg shadow-brand/20 whitespace-nowrap">
             All Workspace Files
@@ -204,7 +204,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <div class="text-sm">
+        <div class="text-sm text-left">
           <h3 class="font-bold text-slate-200">Security & Information Isolation Policy</h3>
           <p class="text-slate-400 mt-0.5 leading-relaxed">
             Unnecessary configuration metrics, environment requirements, and core indexes have been completely scrubbed from the rendering arrays to isolate public exposure vectors cleanly.
@@ -239,7 +239,7 @@
 
   <template id="card-template">
     <article class="group bg-slate-900/20 border border-white/10 rounded-2xl p-4 flex flex-col justify-between hover:border-brand/50 hover:bg-slate-900/40 transition-all shadow-md">
-      <div class="space-y-1.5">
+      <div class="space-y-1.5 text-left">
         <div class="flex items-start justify-between gap-2">
           <h3 class="font-extrabold text-white text-sm md:text-base tracking-tight truncate title flex-1"></h3>
           <span class="type-pill inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-black border tracking-wider shrink-0">
@@ -277,9 +277,9 @@
 
   <div id="hints" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-slate-950/80" onclick="toggleHints(false)"></div>
-    <div class="relative w-full max-w-md bg-white rounded-3xl border border-white/20 shadow-2xl p-6">
+    <div class="relative w-full max-w-md bg-white rounded-3xl border border-white/20 shadow-2xl p-6 text-center sm:text-left">
       <div class="font-black text-slate-900 text-lg tracking-tight">Quick Terminal Tips</div>
-      <ul class="mt-3 text-slate-700 text-sm space-y-2.5 font-medium">
+      <ul class="mt-3 text-slate-700 text-sm space-y-2.5 font-medium text-left">
         <li class="flex items-start gap-1.5"><span>•</span> <span><strong>Search Box:</strong> Instantly evaluates folder branches and text annotations.</span></li>
         <li class="flex items-start gap-1.5"><span>•</span> <span><strong>Viewer Window:</strong> Dynamically loads JSON notebook trees into readable layout panels.</span></li>
       </ul>
@@ -300,7 +300,7 @@
       { type:'ipynb', path:'Course/Chapter-6.ipynb', title:'Chapter 6', desc:'Data Visualization with Matplotlib & Seaborn', group:'course' },
 
       // --- Lab-Report Group ---
-      { type:'ipynb', path:'Lab-Report/Lab-3&4/Lab3&4.ipynb', title:'Lab 3 & 4 Report', desc:'Regression & Verification Estimations', group:'lab' },
+      { type:'ipynb', path:'Lab-Report/Lab-3&4/Lab-3&4.ipynb', title:'Lab 3 & 4 Report', desc:'Regression & Verification Estimations', group:'lab' },
       { type:'ipynb', path:'Lab-Report/Lab-5/Lab-5.ipynb', title:'Lab 5 Report', desc:'Hypothesis Trees & Model Selections', group:'lab' },
 
       // --- Practice Group ---
@@ -434,7 +434,7 @@
         renderNotebook(nb, targetZone);
       } catch (e) {
         targetZone.innerHTML = `
-          <div class="w-full bg-red-950/40 border border-red-900 text-red-200 p-4 rounded-2xl font-mono text-xs">
+          <div class="w-full bg-red-950/40 border border-red-900 text-red-200 p-4 rounded-2xl font-mono text-xs text-left">
             [Workspace Error]: ${escapeHtml(e.message)}. Please verify directory target configurations match.
           </div>
         `;
@@ -465,7 +465,6 @@
         let line = lines[i];
         const trimmed = line.trim();
         
-        // Check for table elements
         const isTableRow = trimmed.startsWith('|') && trimmed.endsWith('|');
         const isDivider = trimmed.match(/^\|\s*:?-{3,}:?\s*\|/);
 
@@ -476,7 +475,6 @@
           }
           if (!isDivider) {
             const cells = trimmed.split('|').filter((c, idx, a) => idx > 0 && idx < a.length - 1).map(c => c.trim());
-            // Sanitize raw text inside cells, then process inline styles
             const renderedCells = cells.map(c => `<td>${applyInlineMarkdown(escapeHtml(c))}</td>`).join('');
             processedLines.push(`<tr>${renderedCells}</tr>`);
           }
@@ -488,17 +486,14 @@
           processedLines.push('</tbody></table></div>');
         }
 
-        // Check for list elements (* or -)
         const listMatch = line.match(/^(\s*)([-*])\s+(.*)$/);
         if (listMatch) {
           const indent = listMatch[1];
           const content = listMatch[3];
-          // Keep structure intact while processing text safely
           processedLines.push(`${indent}• ${applyInlineMarkdown(escapeHtml(content))}`);
           continue;
         }
 
-        // Regular line treatment
         processedLines.push(escapeHtml(line));
       }
       
@@ -506,31 +501,27 @@
         processedLines.push('</tbody></table></div>');
       }
 
-      // Re-map elements block by block
       return processedLines.map(l => {
         const t = l.trim();
         if (!t) return '';
         if (t.startsWith('<div') || t.startsWith('<tr') || t.startsWith('</div') || t.startsWith('</tbody')) return l;
         
-        // Headers parsing
-        if (t.startsWith('#### ')) return `<h4 class="text-sm font-bold mt-4 mb-1 text-white">${applyInlineMarkdown(t.substring(5))}</h4>`;
-        if (t.startsWith('### ')) return `<h3 class="text-base font-extrabold mt-4 mb-1.5 text-slate-100">${applyInlineMarkdown(t.substring(4))}</h3>`;
-        if (t.startsWith('## ')) return `<h2 class="text-lg font-black mt-5 mb-2 border-b border-slate-700 pb-0.5 text-slate-50">${applyInlineMarkdown(t.substring(3))}</h2>`;
-        if (t.startsWith('# ')) return `<h1 class="text-xl font-black mb-3 border-b border-slate-700 pb-1 text-white">${applyInlineMarkdown(t.substring(2))}</h1>`;
+        if (t.startsWith('#### ')) return `<h4 class="text-sm font-bold mt-4 mb-1 text-white text-left">${applyInlineMarkdown(t.substring(5))}</h4>`;
+        if (t.startsWith('### ')) return `<h3 class="text-base font-extrabold mt-4 mb-1.5 text-slate-100 text-left">${applyInlineMarkdown(t.substring(4))}</h3>`;
+        if (t.startsWith('## ')) return `<h2 class="text-lg font-black mt-5 mb-2 border-b border-slate-700 pb-0.5 text-slate-50 text-left">${applyInlineMarkdown(t.substring(3))}</h2>`;
+        if (t.startsWith('# ')) return `<h1 class="text-xl font-black mb-3 border-b border-slate-700 pb-1 text-white text-left">${applyInlineMarkdown(t.substring(2))}</h1>`;
         
-        // List line items layout block wrap
         if (t.startsWith('• ')) {
-          return `<div class="flex items-start gap-2 ml-4 mb-1 text-xs md:text-sm text-slate-300">
+          return `<div class="flex items-start gap-2 ml-4 mb-1 text-xs md:text-sm text-slate-300 text-left">
                     <span class="text-brand shrink-0">•</span>
                     <span class="leading-relaxed">${t.substring(2)}</span>
                   </div>`;
         }
 
-        return `<p class="mb-2 leading-relaxed text-slate-300 text-xs md:text-sm">${applyInlineMarkdown(l)}</p>`;
+        return `<p class="mb-2 leading-relaxed text-slate-300 text-xs md:text-sm text-left">${applyInlineMarkdown(l)}</p>`;
       }).join('\n');
     }
 
-    // Handles core token substitutions cleanly without causing html translation leaks
     function applyInlineMarkdown(sanitizedStr) {
       return sanitizedStr
         .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-white">$1</strong>')
@@ -557,21 +548,21 @@
 
         if (cell.cell_type === 'code'){
           const pre = document.createElement('pre');
-          pre.className = 'nb-code rounded-2xl p-4 overflow-x-auto whitespace-pre-wrap text-xs font-mono leading-5 w-full';
+          pre.className = 'nb-code rounded-2xl p-4 overflow-x-auto whitespace-pre-wrap text-xs font-mono leading-5 w-full text-left';
           pre.textContent = (cell.source || []).join('');
           block.appendChild(pre);
 
           (cell.outputs || []).forEach(out => {
             if (out.output_type === 'stream' && out.text){
               const outDiv = document.createElement('div');
-              outDiv.className = 'nb-stream-container';
+              outDiv.className = 'nb-stream-container text-left';
               outDiv.textContent = Array.isArray(out.text) ? out.text.join('') : String(out.text);
               block.appendChild(outDiv);
             }
             if (out.data){
               if (out.data['text/html']){
                 const htmlDiv = document.createElement('div');
-                htmlDiv.className = 'dataframe-container';
+                htmlDiv.className = 'dataframe-container text-left';
                 htmlDiv.innerHTML = Array.isArray(out.data['text/html']) ? out.data['text/html'].join('') : String(out.data['text/html']);
                 block.appendChild(htmlDiv);
               }
